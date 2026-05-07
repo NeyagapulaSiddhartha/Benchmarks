@@ -26,7 +26,7 @@ void* runThread(void *arg) {
 
 void c(int *z) {
     int r ; 
-    cin>>r;
+    // cin>>r;
     if (r == 10) {
 
                 std::cout<<" doing some work in c "<<"\n";

@@ -94,17 +94,15 @@ void createThread() {
             }
         }
         std::cout << "Inner scope ends" << std::endl;
-            pthread_join(t1, nullptr);
+            pthread_join(t2, nullptr);
 
     }
-    
-        // pthread_join(t1, nullptr);
+    pthread_join(t1, nullptr);
     
 }
 
 int main() {
     createThread();
-     pthread_join(t2, nullptr);
     pthread_join(t3, nullptr);
     return 0;
 }

@@ -26,7 +26,7 @@ void* UseOfData(void* arg)
 void spawnThreads()
 {
     int x;
-    cin >> x;
+    // cin >> x;
     x=10;
     if (x == 10)
     {

@@ -25,7 +25,7 @@ void join_func(pthread_t t)
 
 void threadFunction() {
     int x = 10;
-    cin>>x;
+    // cin>>x;
     pthread_create(&t1, nullptr, thread_func, &x);
     pthread_create(&t2, nullptr, thread_func, &x);
     if(x>=0){
