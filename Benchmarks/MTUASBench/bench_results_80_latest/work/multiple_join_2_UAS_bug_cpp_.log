@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: multiple_join_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (103 total attempts, 23 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 23
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 79
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1942983==ERROR: AddressSanitizer: stack-use-after-return on address 0x71a368800020 at pc 0x5c51564d98c8 bp 0x71a3665f4e00 sp 0x71a3665f4df8
+READ of size 4 at 0x71a368800020 thread T2
+

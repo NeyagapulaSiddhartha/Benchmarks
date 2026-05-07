@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: vtable_if_else_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (69 total attempts, 19 segfaults):
+    ASan error caught  : 5
+    Segfaults          : 19
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 45
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==852668==ERROR: AddressSanitizer: stack-use-after-return on address 0x727ff5e00028 at pc 0x647158875bfe bp 0x727ff4ffeda0 sp 0x727ff4ffed98
+READ of size 4 at 0x727ff5e00028 thread T1
+    #0 0x647158875bfd in Base::func4() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:19:47
+    #1 0x6471588759dd in threadFunc(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:61:22
+    #2 0x727ff7e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x727ff7f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x727ff5e00028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x6471588759ff in startThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:67
+
+  This frame has 1 object(s):
+    [32, 48) 'DerivedObj' (line 68) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:19:47 in Base::func4()
+Shadow bytes around the buggy address:
+  0x727ff5dffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x727ff5dffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x727ff5dffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x727ff5dfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x727ff5dfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

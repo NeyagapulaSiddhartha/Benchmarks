@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: diamond_problem_2_bugs.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_2_bugs.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (140 total attempts, 40 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 40
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

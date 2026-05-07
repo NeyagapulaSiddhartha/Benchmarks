@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_join_using_func_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (109 total attempts, 29 segfaults):
+    ASan error caught  : 79
+    Segfaults          : 29
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 1
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==2083551==ERROR: AddressSanitizer: stack-use-after-return on address 0x74b49da00020 at pc 0x5ef3ed25f8eb bp 0x74b49c0fde00 sp 0x74b49c0fddf8
+READ of size 4 at 0x74b49da00020 thread T2
+    #0 0x5ef3ed25f8ea in threadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:15:38
+    #1 0x74b49f89caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x74b49f929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x74b49da00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5ef3ed25f9af in createThread(int) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:28
+
+  This frame has 1 object(s):
+    [32, 36) 'x.addr' <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:15:38 in threadTask(void*)
+Shadow bytes around the buggy address:
+  0x74b49d9ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74b49d9ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74b49d9ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74b49d9fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74b49d9fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x74b49da00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

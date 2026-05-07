@@ -1,0 +1,1 @@
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp	100	38	36	0	62	ASAN_CAUGHT

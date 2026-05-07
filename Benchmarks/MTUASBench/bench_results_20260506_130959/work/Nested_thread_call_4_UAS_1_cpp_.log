@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_UAS=1.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_UAS=1.cpp
+
+  Compiled OK
+
+  Results over 5 run(s) (5 total attempts, 0 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 0
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 5
+    Execution time     : 26.164s  (valid runs only)
+
+  Per-bin breakdown (10 valid runs per bin):
+    Runs   1-  5 :  0 /  5 caught
+
+  [VERDICT] PASS — Program appears to run correctly (no errors detected)
+

@@ -1,0 +1,20 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_with_loops_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_with_loops_bug.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (11 total attempts, 1 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 1
+    Large-number output: 1  (ASan missed, UAS visible in output)
+    Clean runs         : 9
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Value passed from func by Ref: Value passed from func by Ref: Value passed from func by Val: 101010
+
+
+Value passed from func by Val: 10
+

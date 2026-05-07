@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: dynamic_downcast_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (283 total attempts, 83 segfaults):
+    ASan error caught  : 199
+    Segfaults          : 83
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 1
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3141682==ERROR: AddressSanitizer: stack-use-after-return on address 0x71092bf00048 at pc 0x649cce703cff bp 0x71092acfedc0 sp 0x71092acfedb8
+READ of size 4 at 0x71092bf00048 thread T2
+    #0 0x649cce703cfe in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp:13:44
+    #1 0x649cce7039ac in runThread2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp:50:14
+    #2 0x71092de9caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x71092df29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x71092bf00048 is located in stack of thread T0 at offset 72 in frame
+    #0 0x649cce703a2f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp:58
+
+  This frame has 2 object(s):
+    [32, 48) 'a1Obj' (line 59)
+    [64, 80) 'a2Obj' (line 60) <== Memory access at offset 72 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp:13:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x71092beffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71092beffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71092beffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71092befff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

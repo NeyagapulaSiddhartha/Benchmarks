@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_do_while_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (255 total attempts, 55 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 55
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 200
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

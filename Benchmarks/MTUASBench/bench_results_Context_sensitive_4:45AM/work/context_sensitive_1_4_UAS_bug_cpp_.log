@@ -1,0 +1,17 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_1_4_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (136 total attempts, 36 segfaults):
+    ASan error caught  : 4
+    Segfaults          : 36
+    Large-number output: 16  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+

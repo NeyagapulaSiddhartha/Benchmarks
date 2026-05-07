@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_4_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (105 total attempts, 25 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

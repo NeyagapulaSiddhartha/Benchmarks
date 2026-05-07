@@ -1,0 +1,51 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_4_Main_join_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_Main_join_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (15 total attempts, 5 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 5
+    Large-number output: 1  (ASan missed, UAS visible in output)
+    Clean runs         : 7
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==751037==ERROR: AddressSanitizer: unknown-crash on address 0x73814a1f5020 at pc 0x5ad6cfbc08c1 bp 0x7381491e8df0 sp 0x7381491e8de8
+READ of size 4 at 0x73814a1f5020 thread T5
+    #0 0x5ad6cfbc08c0 in taskLevel5(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_4_Main_join_UAS_bug.cpp:11:10
+    #1 0x73814f69caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x73814f729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x73814a1f5020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_4_Main_join_UAS_bug.cpp:11:10 in taskLevel5(void*)
+Shadow bytes around the buggy address:
+  0x73814a1f4d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f4e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f4e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f4f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f4f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x73814a1f5000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f5080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f5100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f5180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f5200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x73814a1f5280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+
+
+  Results over 10 run(s) (11 total attempts, 1 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 1
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 10
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

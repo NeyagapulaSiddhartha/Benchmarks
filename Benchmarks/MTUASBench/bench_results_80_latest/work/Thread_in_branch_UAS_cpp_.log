@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_branch_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_in_branch_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (105 total attempts, 25 segfaults):
+    ASan error caught  : 25
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 55
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==2083235==ERROR: AddressSanitizer: unknown-crash on address 0x717c93eff020 at pc 0x5c04df06f8b1 bp 0x717c93ef4de0 sp 0x717c93ef4dd8
+READ of size 4 at 0x717c93eff020 thread T2
+

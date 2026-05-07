@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: static_downcast_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (274 total attempts, 74 segfaults):
+    ASan error caught  : 4
+    Segfaults          : 74
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 196
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3218341==ERROR: AddressSanitizer: stack-use-after-return on address 0x74a209300020 at pc 0x58875ba8b8e7 bp 0x74a2083fede0 sp 0x74a2083fedd8
+READ of size 8 at 0x74a209300020 thread T1
+    #0 0x58875ba8b8e6 in runThread1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_2_UAS.cpp:46:14
+    #1 0x74a20b29caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x74a20b329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x74a209300020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x58875ba8ba0f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_2_UAS.cpp:65
+
+  This frame has 2 object(s):
+    [32, 48) 'a1Obj' (line 66) <== Memory access at offset 32 is inside this variable
+    [64, 80) 'a2Obj' (line 67)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_2_UAS.cpp:46:14 in runThread1(void*)
+Shadow bytes around the buggy address:
+  0x74a2092ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74a2092ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74a2092ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74a2092fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74a2092fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

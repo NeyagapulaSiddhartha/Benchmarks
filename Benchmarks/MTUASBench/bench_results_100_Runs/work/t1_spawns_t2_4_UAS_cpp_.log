@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_4_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_4_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (141 total attempts, 41 segfaults):
+    ASan error caught  : 33
+    Segfaults          : 41
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 67
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1467501==ERROR: AddressSanitizer: unknown-crash on address 0x73ad80aff020 at pc 0x571d8f5f68ac bp 0x73ad802f3e00 sp 0x73ad802f3df8
+READ of size 4 at 0x73ad80aff020 thread T3
+

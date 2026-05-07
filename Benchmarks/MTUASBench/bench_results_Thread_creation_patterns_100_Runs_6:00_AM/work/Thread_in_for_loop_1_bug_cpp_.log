@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_for_loop_1_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_1_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (120 total attempts, 20 segfaults):
+    ASan error caught  : 83
+    Segfaults          : 20
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 17
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1225552==ERROR: AddressSanitizer: stack-use-after-scope on address 0x74b193c00050 at pc 0x5cac84659976 bp 0x74b18fce9de0 sp 0x74b18fce9dd8
+READ of size 8 at 0x74b193c00050 thread T4
+    #0 0x5cac84659975 in threadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_1_bug.cpp:48:22
+    #1 0x74b195a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x74b195b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x74b193c00050 is located in stack of thread T0 at offset 80 in frame
+    #0 0x5cac84659a6f in runLoopThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_1_bug.cpp:56
+
+  This frame has 5 object(s):
+    [32, 36) 'sharedVar' (line 57)
+    [48, 56) 'tid' (line 61)
+    [80, 96) 'args' (line 64) <== Memory access at offset 80 is inside this variable
+    [112, 120) 'ref.tmp' (line 64)
+    [144, 148) 'ref.tmp1' (line 64)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_1_bug.cpp:48:22 in threadTask(void*)
+Shadow bytes around the buggy address:
+  0x74b193bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74b193bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

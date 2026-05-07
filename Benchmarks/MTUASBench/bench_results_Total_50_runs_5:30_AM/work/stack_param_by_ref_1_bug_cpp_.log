@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: stack_param_by_ref_1_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_1_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (70 total attempts, 20 segfaults):
+    ASan error caught  : 13
+    Segfaults          : 20
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 37
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==857952==ERROR: AddressSanitizer: stack-use-after-scope on address 0x730d1fc00020 at pc 0x640b32fb7952 bp 0x730d1ecfedf0 sp 0x730d1ecfede8
+READ of size 4 at 0x730d1fc00020 thread T1
+    #0 0x640b32fb7951 in thread_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_1_bug.cpp:52:59
+    #1 0x730d21c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x730d21d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x730d1fc00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x640b32fb79df in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_1_bug.cpp:60
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 65) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_1_bug.cpp:52:59 in thread_func(void*)
+Shadow bytes around the buggy address:
+  0x730d1fbffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x730d1fbffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x730d1fbffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x730d1fbfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x730d1fbfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x730d1fc00000: f1 f1 f1 f1[f8]f3 f3 f3 00 00 00 00 00 00 00 00
+

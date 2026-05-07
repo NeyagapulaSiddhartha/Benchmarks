@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_3_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (125 total attempts, 25 segfaults):
+    ASan error caught  : 98
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 2
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1725701==ERROR: AddressSanitizer: stack-use-after-return on address 0x7c28d3a00020 at pc 0x5b313d66c8d8 bp 0x7c28d29fee00 sp 0x7c28d29fedf8
+READ of size 4 at 0x7c28d3a00020 thread T1
+    #0 0x5b313d66c8d7 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_bug.cpp:14:44
+    #1 0x7c28d589caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7c28d5929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7c28d3a00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5b313d66c95f in b() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_bug.cpp:28
+
+  This frame has 1 object(s):
+    [32, 36) 'y' (line 29) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_bug.cpp:14:44 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x7c28d39ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c28d39ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c28d39ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c28d39fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c28d39fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7c28d3a00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

@@ -1,0 +1,36 @@
+──────────────────────────────────────────────────────────────────────
+FILE: relay_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (144 total attempts, 44 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 44
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 99
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1328849==ERROR: AddressSanitizer: stack-overflow on address 0x7880cb0ff020 (pc 0x559ed0f8e920 bp 0x7880cb0f4e40 sp 0x7880cb0f4e10 T2)
+    #0 0x559ed0f8e920 in threadFunc3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp:13:37
+    #1 0x7880cf29caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7880cf329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp:13:37 in threadFunc3(void*)
+Thread T2 created by T1 here:
+    #0 0x559ed0f39fda in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x559ed0f8ea71 in threadFunc2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp:24:5
+    #2 0x7880cf29caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T1 created by T0 here:
+    #0 0x559ed0f39fda in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x559ed0f8ec67 in Func1() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp:37:5
+    #2 0x559ed0f8ed16 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp:49:5
+    #3 0x7880cf22a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x7880cf22a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x559ed0eb9354 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260430_235140/work/relay_bug_cpp_.bin+0x1f354)
+
+==1328849==ABORTING
+

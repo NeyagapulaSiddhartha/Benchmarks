@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_4_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_4_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (104 total attempts, 24 segfaults):
+    ASan error caught  : 20
+    Segfaults          : 24
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 60
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1959351==ERROR: AddressSanitizer: stack-use-after-return on address 0x72cc495ff020 at pc 0x5b8eeb3e48ac bp 0x72cc495f4e00 sp 0x72cc495f4df8
+READ of size 4 at 0x72cc495ff020 thread T2
+

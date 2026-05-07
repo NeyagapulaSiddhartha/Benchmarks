@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: relay_2_UAS_bugs.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (200 total attempts, 50 segfaults):
+    ASan error caught  : 56
+    Segfaults          : 50
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 94
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1143810==ERROR: AddressSanitizer: unknown-crash on address 0x7889fc4ff020 at pc 0x557fcbf6f8e8 bp 0x7889fc4f4e00 sp 0x7889fc4f4df8
+READ of size 4 at 0x7889fc4ff020 thread T2
+    #0 0x557fcbf6f8e7 in threadFunc3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp:16:37
+    #1 0x788a0069caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x788a00729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7889fc4ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp:16:37 in threadFunc3(void*)
+Shadow bytes around the buggy address:
+  0x7889fc4fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7889fc4ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7889fc4ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

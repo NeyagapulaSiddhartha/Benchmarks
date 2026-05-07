@@ -1,0 +1,33 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_t2_independent_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (25 total attempts, 5 segfaults):
+    ASan error caught  : 16
+    Segfaults          : 5
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 4
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==783287==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x58ae5ee0eb00 bp 0x7b62a19fde40 sp 0x7b62a19fde10 T2)
+==783287==The signal is caused by a READ memory access.
+==783287==Hint: address points to the zero page.
+    #0 0x58ae5ee0eb00 in t2_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:23:29
+    #1 0x7b62a509caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7b62a5129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:23:29 in t2_func(void*)
+Thread T2 created by T0 here:
+    #0 0x58ae5edb9f7a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x58ae5ee0ebb2 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:30:5
+    #2 0x7b62a502a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x7b62a502a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x58ae5ed392f4 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260428_143054/work/t1_t2_independent_2_UAS_cpp_.bin+0x1e2f4)
+
+==783287==ABORTING
+

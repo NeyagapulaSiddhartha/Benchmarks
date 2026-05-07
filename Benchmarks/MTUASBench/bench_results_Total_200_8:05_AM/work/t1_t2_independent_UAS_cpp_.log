@@ -1,0 +1,11 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_t2_independent_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_UAS.cpp
+
+  [COMPILE ERROR]
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_UAS.cpp:31:70: error: expected expression
+                         std::cout << "Value of y is:" << (*gPtr)++; << "
+";
+                                                                     ^
+1 error generated.
+

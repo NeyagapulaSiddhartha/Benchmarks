@@ -1,0 +1,72 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (24 total attempts, 4 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 4
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 18
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==790684==ERROR: AddressSanitizer: stack-overflow on address 0x7ee38efff020 (pc 0x59c828b1feec bp 0x7ee38eff4e40 sp 0x7ee38eff4d80 T2)
+    #0 0x59c828b1feec in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_UAS_SF.cpp:46:78
+    #1 0x7ee39329caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7ee393329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_UAS_SF.cpp:46:78 in taskLevel2(void*)
+Thread T2 created by T1 here:
+    #0 0x59c828acafaa in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x59c828b2009b in taskLevel1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_UAS_SF.cpp:54:5
+    #2 0x7ee39329caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T1 created by T0 here:
+    #0 0x59c828acafaa in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x59c828b202d4 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_UAS_SF.cpp:66:5
+    #2 0x7ee39322a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x7ee39322a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x59c828a4a324 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260428_143054/work/Nested_thread_call_2_bug_UAS_SF_cpp_.bin+0x1f324)
+
+==790684==ABORTING
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_2_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (31 total attempts, 11 segfaults):
+    ASan error caught  : 20
+    Segfaults          : 11
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==799246==ERROR: AddressSanitizer: unknown-crash on address 0x7f291a7ff020 at pc 0x5d1d0c583ae4 bp 0x7f29181e0d70 sp 0x7f29181e0d68
+READ of size 4 at 0x7f291a7ff020 thread T4
+    #0 0x5d1d0c583ae3 in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_2_bug_UAS_SF.cpp:25:78
+    #1 0x7f291ea9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7f291eb29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7f291a7ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_2_bug_UAS_SF.cpp:25:78 in taskLevel4(void*)
+Shadow bytes around the buggy address:
+  0x7f291a7fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7f291a7ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f291a7ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

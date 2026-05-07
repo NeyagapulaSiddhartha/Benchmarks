@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_four_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (127 total attempts, 27 segfaults):
+    ASan error caught  : 37
+    Segfaults          : 27
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 63
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1207964==ERROR: AddressSanitizer: SEGV on unknown address 0x78a4341ff020 (pc 0x5c541e14fb4c bp 0x78a431be0e40 sp 0x78a431be0d80 T4)
+==1207964==The signal is caused by a READ memory access.
+    #0 0x5c541e14fb4c in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:36:78
+    #1 0x78a43849caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x78a438529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:36:78 in taskLevel4(void*)
+Thread T4 created by T3 here:
+    #0 0x5c541e0fafca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5c541e14fcc1 in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:45:5
+    #2 0x78a43849caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T3 created by T2 here:
+    #0 0x5c541e0fafca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5c541e14fec1 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:56:5
+    #2 0x78a43849caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T2 created by T1 here:
+    #0 0x5c541e0fafca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5c541e1500f0 in taskLevel1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:68:5
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (281 total attempts, 81 segfaults):
+    ASan error caught  : 192
+    Segfaults          : 81
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 8
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3141581==ERROR: AddressSanitizer: stack-use-after-return on address 0x78f545e00020 at pc 0x5ffa2078a978 bp 0x78f5444fde00 sp 0x78f5444fddf8
+READ of size 4 at 0x78f545e00020 thread T2
+    #0 0x5ffa2078a977 in UseOfData2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:21:29
+    #1 0x78f547c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x78f547d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x78f545e00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5ffa2078a9af in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:26
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 27) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:21:29 in UseOfData2(void*)
+Shadow bytes around the buggy address:
+  0x78f545dffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78f545dffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78f545dffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78f545dfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78f545dfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x78f545e00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

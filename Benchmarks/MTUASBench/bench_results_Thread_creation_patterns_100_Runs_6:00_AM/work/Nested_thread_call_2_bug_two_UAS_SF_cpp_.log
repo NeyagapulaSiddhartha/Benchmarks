@@ -1,0 +1,31 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_two_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_two_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (128 total attempts, 28 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 28
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_two_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_2_bug_two_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (125 total attempts, 25 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 99
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1251447==ERROR: AddressSanitizer: SEGV on unknown address 0x7287de4ff020 (pc 0x5d99ccb7e95a bp 0x7287dabd6e40 sp 0x7287dabd6e00 T5)
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Inheritance_nested_scope_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (108 total attempts, 28 segfaults):
+    ASan error caught  : 80
+    Segfaults          : 28
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1911120==ERROR: AddressSanitizer: stack-use-after-scope on address 0x79638d300028 at pc 0x5ad0364efc3f bp 0x79638c0fede0 sp 0x79638c0fedd8
+READ of size 4 at 0x79638d300028 thread T1
+    #0 0x5ad0364efc3e in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:13:40
+    #1 0x5ad0364ef926 in runThread2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:46:14
+    #2 0x79638f09caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x79638f129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x79638d300028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x5ad0364ef93f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:50
+
+  This frame has 3 object(s):
+    [32, 48) 'a2Obj' (line 54) <== Memory access at offset 40 is inside this variable
+    [64, 80) 'a1Obj' (line 59)
+    [96, 112) 'a2Obj4' (line 63)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:13:40 in A::m2()
+Shadow bytes around the buggy address:
+  0x79638d2ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79638d2ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79638d2ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

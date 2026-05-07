@@ -1,0 +1,50 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_with_loop_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_two_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_with_loop_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_with_loop_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (111 total attempts, 31 segfaults):
+    ASan error caught  : 31
+    Segfaults          : 31
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 49
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==2013600==ERROR: AddressSanitizer: stack-use-after-return on address 0x72e95e2eb030 at pc 0x560c96cc4c39 bp 0x72e959bc8e10 sp 0x72e959bc8e08
+READ of size 4 at 0x72e95e2eb030 thread T14
+    #0 0x560c96cc4c38 in level3ThreadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_two_UAS_bug.cpp:33:14
+    #1 0x72e964a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x72e964b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x72e95e2eb030 is located in stack of thread T3 at offset 48 in frame
+    #0 0x560c96cc4c8f in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_two_UAS_bug.cpp:39
+
+  This frame has 4 object(s):
+    [32, 36) 'localVar' (line 40)
+    [48, 52) 'i' (line 42) <== Memory access at offset 48 is inside this variable
+    [64, 72) 't4' (line 44)
+    [96, 104) 't3Thread' (line 49)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+Thread T3 created by T2 here:
+    #0 0x560c96c7003a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x560c96cc50e2 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_two_UAS_bug.cpp:64:5
+    #2 0x72e964a9caa3 in start_thread nptl/pthread_create.c:447:8
+
+
+  Results over 80 run(s) (94 total attempts, 14 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 14
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

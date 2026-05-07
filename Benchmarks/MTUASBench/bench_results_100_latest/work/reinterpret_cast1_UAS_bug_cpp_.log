@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: reinterpret_cast1_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (138 total attempts, 38 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 38
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1680264==ERROR: AddressSanitizer: stack-use-after-return on address 0x7a6439000028 at pc 0x5eff92c0aa7f bp 0x7a64380fede0 sp 0x7a64380fedd8
+READ of size 4 at 0x7a6439000028 thread T1
+    #0 0x5eff92c0aa7e in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAS_bug.cpp:13:44
+    #1 0x5eff92c0a87c in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAS_bug.cpp:37:14
+    #2 0x7a643b09caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x7a643b129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7a6439000028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x5eff92c0a89f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAS_bug.cpp:41
+
+  This frame has 1 object(s):
+    [32, 48) 'a1Obj' (line 42) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAS_bug.cpp:13:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x7a6438fffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a6438fffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a6438fffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a6438ffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a6438ffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

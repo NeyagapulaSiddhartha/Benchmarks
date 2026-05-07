@@ -1,0 +1,55 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_1_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_1_Main_join_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_1_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_1_Main_join_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 40 run(s) (47 total attempts, 7 segfaults):
+    ASan error caught  : 11
+    Segfaults          : 7
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 29
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==864048==ERROR: AddressSanitizer: stack-use-after-return on address 0x76db20200020 at pc 0x57464edf88c1 bp 0x76db1f3fedf0 sp 0x76db1f3fede8
+READ of size 4 at 0x76db20200020 thread T5
+    #0 0x57464edf88c0 in taskLevel5(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_1_Main_join_UAS_bug.cpp:17:10
+    #1 0x76db2229caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x76db22329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x76db20200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x57464edf8a9f in taskLevel0(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_1_Main_join_UAS_bug.cpp:56
+
+  This frame has 1 object(s):
+    [32, 36) 'localVar' (line 58) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_1_Main_join_UAS_bug.cpp:17:10 in taskLevel5(void*)
+Shadow bytes around the buggy address:
+  0x76db201ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76db201ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76db201ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76db201fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76db201fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x76db20200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
+
+  Results over 40 run(s) (61 total attempts, 21 segfaults):
+    ASan error caught  : 9
+    Segfaults          : 21
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 31
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==859003==ERROR: AddressSanitizer: stack-use-after-return on address 0x72be1d400020 at pc 0x593d2412d8c1 bp 0x72be19af1df0 sp 0x72be19af1de8
+READ of size 4 at 0x72be1d400020 thread T5
+

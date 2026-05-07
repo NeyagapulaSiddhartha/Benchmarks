@@ -1,0 +1,15 @@
+Files Skipped — Require User Input
+Generated: Thu Apr 30 23:51:40 UTC 2026
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_2_UAS_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 29:    cin >> x;
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_1_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 29:    cin>>r;
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_2_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 40:    cin>>f;
+

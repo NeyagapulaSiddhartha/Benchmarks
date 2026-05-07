@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: global_thread_handle_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/global_thread_handle_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (66 total attempts, 16 segfaults):
+    ASan error caught  : 49
+    Segfaults          : 16
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 1
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3738668==ERROR: AddressSanitizer: stack-use-after-return on address 0x7df7c1e00020 at pc 0x598e596ab8b1 bp 0x7df7c0efedf0 sp 0x7df7c0efede8
+READ of size 4 at 0x7df7c1e00020 thread T1
+    #0 0x598e596ab8b0 in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/global_thread_handle_bug.cpp:14:5
+    #1 0x7df7c3e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7df7c3f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7df7c1e00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x598e596ab94f in startThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/global_thread_handle_bug.cpp:20
+
+  This frame has 1 object(s):
+    [32, 36) 'counter' (line 21) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/global_thread_handle_bug.cpp:14:5 in threadFunction(void*)
+Shadow bytes around the buggy address:
+  0x7df7c1dffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7df7c1dffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7df7c1dffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7df7c1dfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7df7c1dfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7df7c1e00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

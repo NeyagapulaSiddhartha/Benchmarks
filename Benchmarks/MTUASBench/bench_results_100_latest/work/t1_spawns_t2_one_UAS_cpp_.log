@@ -1,0 +1,17 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_one_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_one_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (122 total attempts, 22 segfaults):
+    ASan error caught  : 3
+    Segfaults          : 22
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 97
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1724723==ERROR: AddressSanitizer: stack-overflow on address 0x764fdfaff020 (pc 0x5ef2740ae890 bp 0x764fdfaf4e40 sp 0x764fdfaf4e20 T2)
+

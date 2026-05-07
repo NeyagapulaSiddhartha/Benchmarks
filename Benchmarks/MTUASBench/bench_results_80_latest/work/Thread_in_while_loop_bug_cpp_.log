@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_while_loop_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (111 total attempts, 31 segfaults):
+    ASan error caught  : 63
+    Segfaults          : 31
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 17
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==2081861==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000050 at pc 0x56bd0b8a994b bp 0x72f5557fddb0 sp 0x72f5557fdda8
+READ of size 4 at 0x602000000050 thread T2
+    #0 0x56bd0b8a994a in func1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp:12:10
+    #1 0x72f558e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x72f558f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+0x602000000050 is located 0 bytes inside of 4-byte region [0x602000000050,0x602000000054)
+freed by thread T0 here:
+    #0 0x56bd0b8a7b0d in operator delete(void*) /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_new_delete.cpp:152:3
+    #1 0x56bd0b8a9ee0 in spawnThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp:36:13
+    #2 0x56bd0b8aa093 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp:45:5
+    #3 0x72f558e2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x72f558e2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x56bd0b7d4324 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260429_035242/work/Thread_in_while_loop_bug_cpp_.bin+0x1e324)
+
+previously allocated by thread T0 here:
+    #0 0x56bd0b8a72ad in operator new(unsigned long) /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_new_delete.cpp:95:3
+    #1 0x56bd0b8a9d72 in spawnThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp:31:30
+    #2 0x56bd0b8aa093 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp:45:5
+    #3 0x72f558e2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x72f558e2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (125 total attempts, 25 segfaults):
+    ASan error caught  : 32
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 68
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1292801==ERROR: AddressSanitizer: stack-use-after-return on address 0x7eeb67600020 at pc 0x5e42979a4942 bp 0x7eeb666fedf0 sp 0x7eeb666fede8
+READ of size 4 at 0x7eeb67600020 thread T1
+    #0 0x5e42979a4941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:19:59
+    #1 0x7eeb6969caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7eeb69729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7eeb67600020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5e42979a49cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:28
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 34) <== Memory access at offset 32 is inside this variable
+    [48, 52) 'x2' (line 53)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:19:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x7eeb675ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7eeb675ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7eeb675ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7eeb675fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7eeb675fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

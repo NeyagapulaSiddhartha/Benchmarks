@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: reinterpret_cast1_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (10 total attempts, 0 segfaults):
+    ASan error caught  : 10
+    Segfaults          : 0
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==743640==ERROR: AddressSanitizer: stack-use-after-return on address 0x7f5099c00028 at pc 0x572102ae3b0f bp 0x7f5098afede0 sp 0x7f5098afedd8
+READ of size 4 at 0x7f5099c00028 thread T1
+    #0 0x572102ae3b0e in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:13:44
+    #1 0x572102ae387c in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:37:14
+    #2 0x7f509bc9caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x7f509bd29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7f5099c00028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x572102ae389f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:41
+
+  This frame has 1 object(s):
+    [32, 48) 'a1Obj' (line 42) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:13:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x7f5099bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5099bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5099bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5099bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f5099bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

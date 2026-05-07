@@ -1,0 +1,48 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (130 total attempts, 30 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 30
+    Large-number output: 54  (ASan missed, UAS visible in output)
+    Clean runs         : 46
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Main thread is running. 
+Level 1 thread is running.
+Level 2 thread is running.
+Level 3 thread is running.
+Level 3 thread finished after level 4. Current value: 100
+Level 4 thread is running.
+Value of y is:-1994475840
+doing some work in main 
+Value of y is:-1994475840
+doing some work in main 
+Value of y is:-1994475840
+doing some work in main 
+Value of y is:-1994475840
+doing some work in main 
+Value of y is:-1994475840
+
+
+  Results over 100 run(s) (119 total attempts, 19 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 19
+    Large-number output: 55  (ASan missed, UAS visible in output)
+    Clean runs         : 44
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+

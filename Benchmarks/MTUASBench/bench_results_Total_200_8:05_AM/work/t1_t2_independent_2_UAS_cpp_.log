@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_t2_independent_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (261 total attempts, 61 segfaults):
+    ASan error caught  : 3
+    Segfaults          : 61
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 197
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1717821==ERROR: AddressSanitizer: unknown-crash on address 0x778c653ff020 at pc 0x55d14163ac16 bp 0x778c653f4e00 sp 0x778c653f4df8
+READ of size 4 at 0x778c653ff020 thread T2
+    #0 0x55d14163ac15 in t2_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:29:52
+    #1 0x778c6969caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x778c69729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x778c653ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:29:52 in t2_func(void*)
+Shadow bytes around the buggy address:
+  0x778c653fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x778c653ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x778c653ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x778c653ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

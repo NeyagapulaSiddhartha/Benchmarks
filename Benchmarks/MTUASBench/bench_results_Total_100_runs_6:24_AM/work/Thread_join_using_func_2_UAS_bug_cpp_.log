@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_join_using_func_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (141 total attempts, 41 segfaults):
+    ASan error caught  : 42
+    Segfaults          : 41
+    Large-number output: 8  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1507002==ERROR: AddressSanitizer: stack-use-after-return on address 0x7a9c5b200020 at pc 0x59e128b13942 bp 0x7a9c5a1fedf0 sp 0x7a9c5a1fede8
+READ of size 4 at 0x7a9c5b200020 thread T1
+    #0 0x59e128b13941 in threadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:19:59
+    #1 0x7a9c5d09caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7a9c5d129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7a9c5b200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x59e128b13a3f in createThread(int) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:35
+
+  This frame has 1 object(s):
+    [32, 36) 'x.addr' <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_2_UAS_bug.cpp:19:59 in threadTask(void*)
+Shadow bytes around the buggy address:
+  0x7a9c5b1ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a9c5b1ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a9c5b1ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a9c5b1fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a9c5b1fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7a9c5b200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

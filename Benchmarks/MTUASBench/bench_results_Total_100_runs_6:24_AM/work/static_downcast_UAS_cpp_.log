@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: static_downcast_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (143 total attempts, 43 segfaults):
+    ASan error caught  : 64
+    Segfaults          : 43
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 36
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1303303==ERROR: AddressSanitizer: stack-use-after-return on address 0x7cbee1f00020 at pc 0x64a5685039b1 bp 0x7cbee0efede0 sp 0x7cbee0efedd8
+READ of size 8 at 0x7cbee1f00020 thread T1
+    #0 0x64a5685039b0 in runThread1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_UAS.cpp:51:12
+    #1 0x7cbee3e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7cbee3f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7cbee1f00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x64a568503a3f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_UAS.cpp:63
+
+  This frame has 2 object(s):
+    [32, 48) 'a1Obj' (line 64) <== Memory access at offset 32 is inside this variable
+    [64, 80) 'a2Obj' (line 65)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_UAS.cpp:51:12 in runThread1(void*)
+Shadow bytes around the buggy address:
+  0x7cbee1effd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7cbee1effe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7cbee1effe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7cbee1efff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7cbee1efff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

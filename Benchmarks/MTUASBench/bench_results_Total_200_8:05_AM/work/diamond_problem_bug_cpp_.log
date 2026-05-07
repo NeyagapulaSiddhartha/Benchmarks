@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: diamond_problem_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (280 total attempts, 80 segfaults):
+    ASan error caught  : 200
+    Segfaults          : 80
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1570657==ERROR: AddressSanitizer: stack-use-after-return on address 0x76bd9dd00020 at pc 0x595888ea88d6 bp 0x76bd9cdfee10 sp 0x76bd9cdfee08
+READ of size 8 at 0x76bd9dd00020 thread T1
+    #0 0x595888ea88d5 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:47:14
+    #1 0x76bd9fc9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x76bd9fd29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x76bd9dd00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x595888ea891f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:51
+
+  This frame has 1 object(s):
+    [32, 80) 'a12Obj' (line 52) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:47:14 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x76bd9dcffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd9dcffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd9dcffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd9dcfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd9dcfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x76bd9dd00000: f5 f5 f5 f5[f5]f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+

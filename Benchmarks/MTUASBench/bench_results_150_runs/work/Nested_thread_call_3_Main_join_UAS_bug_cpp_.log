@@ -1,0 +1,54 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (197 total attempts, 47 segfaults):
+    ASan error caught  : 36
+    Segfaults          : 47
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 114
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1185167==ERROR: AddressSanitizer: unknown-crash on address 0x7fdbf04f5020 at pc 0x5afe84494c4d bp 0x7fdbf04ead70 sp 0x7fdbf04ead68
+READ of size 4 at 0x7fdbf04f5020 thread T3
+    #0 0x5afe84494c4c in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp:49:78
+    #1 0x7fdbf5a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7fdbf5b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7fdbf04f5020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp:49:78 in taskLevel3(void*)
+Shadow bytes around the buggy address:
+  0x7fdbf04f4d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f4e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f4e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f4f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f4f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7fdbf04f5000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f5080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f5100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f5180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f5200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fdbf04f5280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+
+
+  Results over 150 run(s) (176 total attempts, 26 segfaults):
+    ASan error caught  : 24
+    Segfaults          : 26
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 126
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1199726==ERROR: AddressSanitizer: stack-overflow on address 0x740dd16ff020 (pc 0x5b68fcd869de bp 0x740dd16f4e40 sp 0x740dd16f4e10 T4)
+

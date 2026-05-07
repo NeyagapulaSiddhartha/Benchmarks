@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: reinterpret_cast1_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (178 total attempts, 28 segfaults):
+    ASan error caught  : 148
+    Segfaults          : 28
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 2
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1105943==ERROR: AddressSanitizer: stack-use-after-return on address 0x79338e200028 at pc 0x55685e738b0f bp 0x79338d1fede0 sp 0x79338d1fedd8
+READ of size 4 at 0x79338e200028 thread T1
+    #0 0x55685e738b0e in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:13:44
+    #1 0x55685e73887c in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:37:14
+    #2 0x79339029caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x793390329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x79338e200028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x55685e73889f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:41
+
+  This frame has 1 object(s):
+    [32, 48) 'a1Obj' (line 42) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:13:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x79338e1ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79338e1ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79338e1ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79338e1fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79338e1fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

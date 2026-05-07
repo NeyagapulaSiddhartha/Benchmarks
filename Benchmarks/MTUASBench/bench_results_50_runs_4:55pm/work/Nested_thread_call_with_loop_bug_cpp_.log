@@ -1,0 +1,72 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_with_loop_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_with_loop_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_with_loop_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (66 total attempts, 16 segfaults):
+    ASan error caught  : 45
+    Segfaults          : 16
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 5
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3715812==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7d703c1eb030 at pc 0x5c68da125c39 bp 0x7d70349abe10 sp 0x7d70349abe08
+READ of size 4 at 0x7d703c1eb030 thread T14
+    #0 0x5c68da125c38 in level3ThreadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_bug.cpp:33:14
+    #1 0x7d704289caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7d7042929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7d703c1eb030 is located in stack of thread T3 at offset 48 in frame
+    #0 0x5c68da125c8f in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_bug.cpp:39
+
+  This frame has 4 object(s):
+    [32, 36) 'localVar' (line 40)
+    [48, 52) 'i' (line 42) <== Memory access at offset 48 is inside this variable
+    [64, 72) 't4' (line 44)
+    [96, 104) 't3Thread' (line 49)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+Thread T3 created by T2 here:
+    #0 0x5c68da0d103a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5c68da126162 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_with_loop_bug.cpp:71:5
+    #2 0x7d704289caa3 in start_thread nptl/pthread_create.c:447:8
+
+
+  Results over 50 run(s) (59 total attempts, 9 segfaults):
+    ASan error caught  : 22
+    Segfaults          : 9
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 28
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3731055==ERROR: AddressSanitizer: stack-use-after-scope on address 0x709b279eb030 at pc 0x5cad2c729c39 bp 0x709b222c6e10 sp 0x709b222c6e08
+READ of size 4 at 0x709b279eb030 thread T14
+    #0 0x5cad2c729c38 in level3ThreadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_with_loop_bug.cpp:33:14
+    #1 0x709b2e09caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x709b2e129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x709b279eb030 is located in stack of thread T3 at offset 48 in frame
+    #0 0x5cad2c729c8f in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_with_loop_bug.cpp:40
+
+  This frame has 4 object(s):
+    [32, 36) 'localVar' (line 41)
+    [48, 52) 'i' (line 43) <== Memory access at offset 48 is inside this variable
+    [64, 72) 't4' (line 45)
+    [96, 104) 't3Thread' (line 50)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+Thread T3 created by T2 here:
+    #0 0x5cad2c6d503a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5cad2c72a0e2 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_with_loop_bug.cpp:63:5
+    #2 0x709b2e09caa3 in start_thread nptl/pthread_create.c:447:8
+

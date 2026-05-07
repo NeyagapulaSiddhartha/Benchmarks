@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (255 total attempts, 55 segfaults):
+    ASan error caught  : 187
+    Segfaults          : 55
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 13
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3286727==ERROR: AddressSanitizer: stack-use-after-return on address 0x78d2f4000020 at pc 0x5ab1e395a922 bp 0x78d2f2efedf0 sp 0x78d2f2efede8
+READ of size 4 at 0x78d2f4000020 thread T1
+    #0 0x5ab1e395a921 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:20:56
+    #1 0x78d2f5e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x78d2f5f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x78d2f4000020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5ab1e395a97f in c() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:29
+
+  This frame has 1 object(s):
+    [32, 36) 'r' (line 30) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:20:56 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x78d2f3fffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78d2f3fffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78d2f3fffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78d2f3ffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78d2f3ffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x78d2f4000000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

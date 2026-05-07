@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: relay_2_UAS_bugs.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (28 total attempts, 8 segfaults):
+    ASan error caught  : 9
+    Segfaults          : 8
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 11
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==782033==ERROR: AddressSanitizer: stack-use-after-return on address 0x783eaebff030 at pc 0x653d3d3898e8 bp 0x783eae3f3e00 sp 0x783eae3f3df8
+READ of size 4 at 0x783eaebff030 thread T3
+    #0 0x653d3d3898e7 in threadFunc3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp:16:37
+    #1 0x783eb2e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x783eb2f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x783eaebff030 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_2_UAS_bugs.cpp:16:37 in threadFunc3(void*)
+Shadow bytes around the buggy address:
+  0x783eaebfed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebfee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebfee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebfef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebfef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x783eaebff000: 00 00 00 00 00 00[00]00 00 00 00 00 00 00 00 00
+  0x783eaebff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x783eaebff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

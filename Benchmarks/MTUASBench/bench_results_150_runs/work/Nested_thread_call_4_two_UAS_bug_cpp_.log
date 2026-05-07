@@ -1,0 +1,109 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_4_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (200 total attempts, 50 segfaults):
+    ASan error caught  : 36
+    Segfaults          : 50
+    Large-number output: 3  (ASan missed, UAS visible in output)
+    Clean runs         : 111
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1211747==ERROR: AddressSanitizer: stack-overflow on address 0x72cc976eb020 (pc 0x5b306bfe69ee bp 0x72cc976e0e40 sp 0x72cc976e0e10 T4)
+    #0 0x5b306bfe69ee in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp:23:78
+    #1 0x72cc9de9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x72cc9df29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp:23:78 in taskLevel4(void*)
+Thread T4 created by T3 here:
+    #0 0x5b306bf91f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5b306bfe6b40 in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp:33:5
+    #2 0x72cc9de9caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T3 created by T2 here:
+    #0 0x5b306bf91f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5b306bfe6c58 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp:44:5
+    #2 0x72cc9de9caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T2 created by T1 here:
+    #0 0x5b306bf91f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5b306bfe6cf8 in taskLevel1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_two_UAS_bug.cpp:55:5
+    #2 0x72cc9de9caa3 in start_thread nptl/pthread_create.c:447:8
+
+
+  Results over 150 run(s) (167 total attempts, 17 segfaults):
+    ASan error caught  : 17
+    Segfaults          : 17
+    Large-number output: 2  (ASan missed, UAS visible in output)
+    Clean runs         : 131
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1245784==ERROR: AddressSanitizer: unknown-crash on address 0x7dbfcd2ff020 at pc 0x56fbf9eefac4 bp 0x7dbfcd2f4d70 sp 0x7dbfcd2f4d68
+READ of size 4 at 0x7dbfcd2ff020 thread T4
+    #0 0x56fbf9eefac3 in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_4_two_UAS_bug.cpp:27:78
+    #1 0x7dbfd149caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7dbfd1529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7dbfcd2ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_4_two_UAS_bug.cpp:27:78 in taskLevel4(void*)
+Shadow bytes around the buggy address:
+  0x7dbfcd2fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7dbfcd2ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dbfcd2ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (196 total attempts, 46 segfaults):
+    ASan error caught  : 13
+    Segfaults          : 46
+    Large-number output: 137  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1269255==ERROR: AddressSanitizer: stack-overflow on address 0x7f96f12eb020 (pc 0x59f7fa3fcacc bp 0x7f96f12e0e40 sp 0x7f96f12e0d80 T4)
+    #0 0x59f7fa3fcacc in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp:22:78
+    #1 0x7f96f7a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7f96f7b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp:22:78 in taskLevel4(void*)
+Thread T4 created by T3 here:
+    #0 0x59f7fa3a7f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x59f7fa3fcc70 in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp:31:5
+    #2 0x7f96f7a9caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T3 created by T2 here:
+    #0 0x59f7fa3a7f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x59f7fa3fce32 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp:41:5
+    #2 0x7f96f7a9caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T2 created by T1 here:
+    #0 0x59f7fa3a7f8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x59f7fa3fcfe2 in taskLevel1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_two_UAS_bug.cpp:52:5
+    #2 0x7f96f7a9caa3 in start_thread nptl/pthread_create.c:447:8
+

@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: dynamic_downcast_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (136 total attempts, 36 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 36
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

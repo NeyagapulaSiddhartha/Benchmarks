@@ -1,0 +1,28 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+  Compiled OK
+  Compiled OK
+
+  Results over 50 run(s) (50 total attempts, 0 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 0
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] PASS — Program appears to run correctly (no errors detected)
+
+
+  Results over 50 run(s) (50 total attempts, 0 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 0
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] PASS — Program appears to run correctly (no errors detected)
+

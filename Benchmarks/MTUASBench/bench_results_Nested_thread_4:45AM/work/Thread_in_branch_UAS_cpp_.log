@@ -1,0 +1,10 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_branch_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_in_branch_UAS.cpp
+
+  [COMPILE ERROR]
+../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_in_branch_UAS.cpp:19:49: error: use of undeclared identifier 'arg'
+                     int *y = static_cast<int*>(arg);
+                                                ^
+1 error generated.
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: stack_param_by_ref_with_2_threads_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (68 total attempts, 18 segfaults):
+    ASan error caught  : 5
+    Segfaults          : 18
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 45
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==867351==ERROR: AddressSanitizer: stack-use-after-return on address 0x75c85fe00020 at pc 0x5dd7259ce942 bp 0x75c85ecfedf0 sp 0x75c85ecfede8
+READ of size 4 at 0x75c85fe00020 thread T1
+    #0 0x5dd7259ce941 in thread_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:49:46
+    #1 0x75c861e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x75c861f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x75c85fe00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5dd7259ce9af in threadFunction() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:60
+
+  This frame has 2 object(s):
+    [32, 36) 'x' (line 61) <== Memory access at offset 32 is inside this variable
+    [48, 52) 'y' (line 62)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:49:46 in thread_func(void*)
+Shadow bytes around the buggy address:
+  0x75c85fdffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75c85fdffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75c85fdffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75c85fdfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75c85fdfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

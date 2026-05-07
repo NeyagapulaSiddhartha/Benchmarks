@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: dynamic_downcast_bug_3_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (256 total attempts, 56 segfaults):
+    ASan error caught  : 194
+    Segfaults          : 56
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 6
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3141753==ERROR: AddressSanitizer: stack-use-after-return on address 0x75d876d00020 at pc 0x56e47132b8a6 bp 0x75d875bfede0 sp 0x75d875bfedd8
+READ of size 8 at 0x75d876d00020 thread T1
+    #0 0x56e47132b8a5 in runThread1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:40:14
+    #1 0x75d878a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x75d878b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x75d876d00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x56e47132ba2f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:58
+
+  This frame has 2 object(s):
+    [32, 48) 'a1Obj' (line 59) <== Memory access at offset 32 is inside this variable
+    [64, 80) 'a2Obj' (line 60)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:40:14 in runThread1(void*)
+Shadow bytes around the buggy address:
+  0x75d876cffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75d876cffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75d876cffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75d876cfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75d876cfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

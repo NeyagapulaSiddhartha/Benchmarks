@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (121 total attempts, 21 segfaults):
+    ASan error caught  : 25
+    Segfaults          : 21
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 75
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==391365==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7927afe00030 at pc 0x5ea39bf0e942 bp 0x7927aecfedf0 sp 0x7927aecfede8
+READ of size 4 at 0x7927afe00030 thread T1
+    #0 0x5ea39bf0e941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59
+    #1 0x7927b1c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7927b1d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7927afe00030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5ea39bf0e9cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:33
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 38)
+    [48, 52) 'x2' (line 38) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x7927afdffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

@@ -1,0 +1,33 @@
+──────────────────────────────────────────────────────────────────────
+FILE: separate_inheritances_bug_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp
+
+  Compiled OK
+
+  Results over 40 run(s) (51 total attempts, 11 segfaults):
+    ASan error caught  : 40
+    Segfaults          : 11
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==839429==ERROR: AddressSanitizer: SEGV on unknown address 0x00043fff8001 (pc 0x5b3ba25118b5 bp 0x7549afcfee40 sp 0x7549afcfee20 T1)
+==839429==The signal is caused by a READ memory access.
+    #0 0x5b3ba25118b5 in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:42:17
+    #1 0x7549b2c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7549b2d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:42:17 in threadFunction(void*)
+Thread T1 created by T0 here:
+    #0 0x5b3ba24bcf9a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5b3ba25119f5 in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:50:5
+    #2 0x5b3ba2511a93 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:56:5
+    #3 0x7549b2c2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x7549b2c2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x5b3ba243c314 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260428_152405/work/separate_inheritances_bug_SF_cpp_.bin+0x1f314)
+
+==839429==ABORTING
+

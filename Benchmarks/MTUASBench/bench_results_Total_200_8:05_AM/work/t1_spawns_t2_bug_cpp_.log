@@ -1,0 +1,35 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (266 total attempts, 66 segfaults):
+    ASan error caught  : 83
+    Segfaults          : 66
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 117
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1653105==ERROR: AddressSanitizer: stack-overflow on address 0x7954f48ff020 (pc 0x5add0ff1b945 bp 0x7954f48f4e40 sp 0x7954f48f4e10 T2)
+    #0 0x5add0ff1b945 in t2_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp:18:59
+    #1 0x7954f8a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7954f8b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp:18:59 in t2_func(void*)
+Thread T2 created by T1 here:
+    #0 0x5add0fec6fca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5add0ff1bac0 in t1_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp:30:5
+    #2 0x7954f8a9caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T1 created by T0 here:
+    #0 0x5add0fec6fca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5add0ff1bbd8 in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp:45:5
+    #2 0x7954f8a2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x7954f8a2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x5add0fe46344 in _start (/home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/bench_results_20260501_005510/work/t1_spawns_t2_bug_cpp_.bin+0x1f344)
+
+==1653105==ABORTING
+

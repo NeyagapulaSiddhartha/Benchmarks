@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_1_4_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (63 total attempts, 13 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 13
+    Large-number output: 1  (ASan missed, UAS visible in output)
+    Clean runs         : 47
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==854954==ERROR: AddressSanitizer: stack-use-after-return on address 0x70fdf5c00020 at pc 0x55e4702e3942 bp 0x70fdf4bfedf0 sp 0x70fdf4bfede8
+READ of size 4 at 0x70fdf5c00020 thread T1
+    #0 0x55e4702e3941 in UseOfData1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp:21:59
+    #1 0x70fdf7a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x70fdf7b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x70fdf5c00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x55e4702e3aef in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp:44
+
+  This frame has 2 object(s):
+    [32, 36) 'x' (line 45) <== Memory access at offset 32 is inside this variable
+    [48, 52) 'y' (line 57)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp:21:59 in UseOfData1(void*)
+Shadow bytes around the buggy address:
+  0x70fdf5bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x70fdf5bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x70fdf5bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x70fdf5bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x70fdf5bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

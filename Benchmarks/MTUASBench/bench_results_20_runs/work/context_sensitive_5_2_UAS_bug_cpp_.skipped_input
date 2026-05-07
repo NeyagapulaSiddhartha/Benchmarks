@@ -1,0 +1,4 @@
+FILE: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 26:    cin>> p;
+

@@ -1,0 +1,4 @@
+FILE: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 20:    cin >> x;
+

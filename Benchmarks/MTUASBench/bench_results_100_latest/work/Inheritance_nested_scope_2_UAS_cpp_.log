@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Inheritance_nested_scope_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (136 total attempts, 36 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 36
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1659670==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7593d6900040 at pc 0x56fe18eb28c0 bp 0x7593d4ffde10 sp 0x7593d4ffde08
+READ of size 8 at 0x7593d6900040 thread T2
+    #0 0x56fe18eb28bf in runThread1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:39:14
+    #1 0x7593d869caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7593d8729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7593d6900040 is located in stack of thread T0 at offset 64 in frame
+    #0 0x56fe18eb293f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:50
+
+  This frame has 3 object(s):
+    [32, 48) 'a2Obj' (line 54)
+    [64, 80) 'a1Obj' (line 59) <== Memory access at offset 64 is inside this variable
+    [96, 112) 'a2Obj4' (line 63)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope_2_UAS.cpp:39:14 in runThread1(void*)
+Shadow bytes around the buggy address:
+  0x7593d68ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7593d68ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7593d68ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7593d68fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

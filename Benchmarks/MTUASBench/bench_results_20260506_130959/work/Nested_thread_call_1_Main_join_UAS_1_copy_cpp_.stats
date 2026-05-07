@@ -1,0 +1,1 @@
+../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_1_Main_join_UAS=1 copy.cpp	5	5	1	0	0	ASAN_CAUGHT	26.264	5	pthread_create@L208:10

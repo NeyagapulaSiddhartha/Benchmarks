@@ -1,0 +1,4 @@
+FILE: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_3_UAS_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 17:    cin>>x;
+

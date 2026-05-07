@@ -1,0 +1,1 @@
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_bug.cpp	200	0	73	0	200	SEGFAULT_ONLY

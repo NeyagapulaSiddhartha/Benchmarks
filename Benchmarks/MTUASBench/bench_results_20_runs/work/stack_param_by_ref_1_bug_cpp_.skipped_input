@@ -1,0 +1,4 @@
+FILE: ../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_1_bug.cpp
+  Pattern : \bcin\s*>>
+  Line    : 21:    std::cin >> a;
+

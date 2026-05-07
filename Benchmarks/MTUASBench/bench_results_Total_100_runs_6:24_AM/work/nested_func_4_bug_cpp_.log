@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (139 total attempts, 39 segfaults):
+    ASan error caught  : 31
+    Segfaults          : 39
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 69
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1374619==ERROR: AddressSanitizer: stack-use-after-return on address 0x7936db400020 at pc 0x64c9aaef7942 bp 0x7936da2fedf0 sp 0x7936da2fede8
+READ of size 4 at 0x7936db400020 thread T1
+    #0 0x64c9aaef7941 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:21:59
+    #1 0x7936dd29caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7936dd329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7936db400020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x64c9aaef79cf in c() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:29
+
+  This frame has 1 object(s):
+    [32, 36) 'r' (line 30) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_4_bug.cpp:21:59 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x7936db3ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7936db3ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7936db3ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7936db3fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7936db3fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7936db400000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

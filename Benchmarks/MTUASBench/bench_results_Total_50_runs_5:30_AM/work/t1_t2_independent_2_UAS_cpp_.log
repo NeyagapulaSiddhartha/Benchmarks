@@ -1,0 +1,23 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_t2_independent_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp
+
+  [COMPILE ERROR]
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:12:33: error: use of undeclared identifier 'local1'
+    printf("T1 assigned: %d
+", local1);
+                                ^
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:13:33: error: use of undeclared identifier 'local2'
+    printf("T1 assigned: %d
+", local2);
+                                ^
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:30:33: error: use of undeclared identifier 'local1'
+    printf("T1 assigned: %d
+", local1);
+                                ^
+../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:31:33: error: use of undeclared identifier 'local2'
+    printf("T1 assigned: %d
+", local2);
+                                ^
+4 errors generated.
+

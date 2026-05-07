@@ -1,0 +1,6 @@
+──────────────────────────────────────────────────────────────────────
+FILE: relay_without_use_no_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_without_use_no_bug.cpp
+
+  [SKIPPED — NAME FILTER] name contains 'no' — likely a non-buggy variant
+

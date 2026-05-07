@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: reinterpret_cast1_UAF_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAF_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (63 total attempts, 13 segfaults):
+    ASan error caught  : 42
+    Segfaults          : 13
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 8
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3650256==ERROR: AddressSanitizer: stack-use-after-return on address 0x77fe86a00020 at pc 0x5c8539dac896 bp 0x77fe85afee10 sp 0x77fe85afee08
+READ of size 8 at 0x77fe86a00020 thread T1
+    #0 0x5c8539dac895 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAF_bug.cpp:37:14
+    #1 0x77fe88a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x77fe88b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x77fe86a00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5c8539dac8df in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAF_bug.cpp:41
+
+  This frame has 1 object(s):
+    [32, 48) 'a1Obj' (line 42) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_UAF_bug.cpp:37:14 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x77fe869ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x77fe869ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x77fe869ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x77fe869fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x77fe869fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x77fe86a00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

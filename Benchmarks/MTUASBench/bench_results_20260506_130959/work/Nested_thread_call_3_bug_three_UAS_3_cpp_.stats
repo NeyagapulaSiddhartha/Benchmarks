@@ -1,0 +1,1 @@
+../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_3_bug_three_UAS=3.cpp	5	4	0	0	1	ASAN_CAUGHT	28.261	4	pthread_create@L208:8

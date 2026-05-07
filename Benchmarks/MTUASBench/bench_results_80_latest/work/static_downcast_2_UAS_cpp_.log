@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: static_downcast_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (110 total attempts, 30 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 30
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: diamond_problem_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (64 total attempts, 14 segfaults):
+    ASan error caught  : 46
+    Segfaults          : 14
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 4
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3650248==ERROR: AddressSanitizer: stack-use-after-return on address 0x7d7148700020 at pc 0x572240cfe896 bp 0x7d71476fee10 sp 0x7d71476fee08
+READ of size 8 at 0x7d7148700020 thread T1
+    #0 0x572240cfe895 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:46:14
+    #1 0x7d714a69caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7d714a729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7d7148700020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x572240cfe8df in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:50
+
+  This frame has 1 object(s):
+    [32, 80) 'a12Obj' (line 51) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_bug.cpp:46:14 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x7d71486ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7d71486ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7d71486ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7d71486fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7d71486fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7d7148700000: f5 f5 f5 f5[f5]f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+

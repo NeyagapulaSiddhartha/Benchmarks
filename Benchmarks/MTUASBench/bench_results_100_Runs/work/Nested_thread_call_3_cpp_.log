@@ -1,0 +1,12 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_3.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+

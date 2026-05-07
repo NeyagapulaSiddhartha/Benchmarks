@@ -1,0 +1,74 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (127 total attempts, 27 segfaults):
+    ASan error caught  : 24
+    Segfaults          : 27
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 76
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1502131==ERROR: AddressSanitizer: SEGV on unknown address 0x7c34efdf5020 (pc 0x5e994c812a9e bp 0x7c34f1bfde40 sp 0x7c34f1bfde10 T3)
+==1502131==The signal is caused by a READ memory access.
+    #0 0x5e994c812a9e in taskLevel3(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp:33:78
+    #1 0x7c34f529caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7c34f5329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp:33:78 in taskLevel3(void*)
+Thread T3 created by T2 here:
+    #0 0x5e994c7bdf8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5e994c812bf0 in taskLevel2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp:42:5
+    #2 0x7c34f529caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T2 created by T1 here:
+    #0 0x5e994c7bdf8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5e994c812cf8 in taskLevel1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp:52:5
+    #2 0x7c34f529caa3 in start_thread nptl/pthread_create.c:447:8
+
+Thread T1 created by T0 here:
+    #0 0x5e994c7bdf8a in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5e994c812d8a in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_Main_join_UAS_bug.cpp:65:5
+
+
+  Results over 100 run(s) (125 total attempts, 25 segfaults):
+    ASan error caught  : 14
+    Segfaults          : 25
+    Large-number output: 1  (ASan missed, UAS visible in output)
+    Clean runs         : 85
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1490030==ERROR: AddressSanitizer: stack-use-after-return on address 0x769d2a4f5020 at pc 0x65136fb018c1 bp 0x769d289dfdf0 sp 0x769d289dfde8
+READ of size 4 at 0x769d2a4f5020 thread T5
+    #0 0x65136fb018c0 in taskLevel5(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp:13:10
+    #1 0x769d2fa9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x769d2fb29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x769d2a4f5020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_3_Main_join_UAS_bug.cpp:13:10 in taskLevel5(void*)
+Shadow bytes around the buggy address:
+  0x769d2a4f4d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f4e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f4e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f4f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f4f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x769d2a4f5000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f5080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f5100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f5180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f5200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769d2a4f5280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

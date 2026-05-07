@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_Main_join_UAS=2.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_4_Main_join_UAS=2.cpp
+
+  Compiled OK
+
+  Results over 5 run(s) (6 total attempts, 1 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 1
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 5
+    Execution time     : 1.021s  (valid runs only)
+
+  Per-bin breakdown (10 valid runs per bin):
+    Runs   1-  5 :  0 /  5 caught
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

@@ -1,0 +1,28 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_5_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (204 total attempts, 54 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 54
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 150
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_5_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (202 total attempts, 52 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 52
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 150
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

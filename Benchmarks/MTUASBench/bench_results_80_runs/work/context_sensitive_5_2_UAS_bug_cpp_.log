@@ -1,0 +1,8 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+
+  [SKIPPED — USER INPUT]
+    Pattern : cin\s*>>
+    At line : 26:    // cin>> p;
+

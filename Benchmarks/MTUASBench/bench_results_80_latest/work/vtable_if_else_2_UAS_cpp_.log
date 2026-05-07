@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: vtable_if_else_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (102 total attempts, 22 segfaults):
+    ASan error caught  : 3
+    Segfaults          : 22
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 77
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1938759==ERROR: AddressSanitizer: stack-use-after-return on address 0x7bac54600028 at pc 0x5ee3af481bce bp 0x7bac537feda0 sp 0x7bac537fed98
+READ of size 4 at 0x7bac54600028 thread T1
+    #0 0x5ee3af481bcd in Base::func4() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:18:47
+    #1 0x5ee3af4819ad in threadFunc(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:60:22
+    #2 0x7bac5669caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x7bac56729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7bac54600028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x5ee3af4819cf in startThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:66
+
+  This frame has 1 object(s):
+    [32, 48) 'DerivedObj' (line 67) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_2_UAS.cpp:18:47 in Base::func4()
+Shadow bytes around the buggy address:
+  0x7bac545ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bac545ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bac545ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bac545fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bac545fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

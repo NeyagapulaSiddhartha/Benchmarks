@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: handle_pass_by_ref_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_pass_by_ref_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (191 total attempts, 41 segfaults):
+    ASan error caught  : 150
+    Segfaults          : 41
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1310302==ERROR: AddressSanitizer: stack-use-after-return on address 0x7c6a20c00060 at pc 0x5b5b274398a9 bp 0x7c6a1fdfee10 sp 0x7c6a1fdfee08
+READ of size 4 at 0x7c6a20c00060 thread T1
+    #0 0x5b5b274398a8 in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_pass_by_ref_bug.cpp:8:19
+    #1 0x7c6a22c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7c6a22d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7c6a20c00060 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5b5b274398ff in runThread(unsigned long*, int) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_pass_by_ref_bug.cpp:13
+
+  This frame has 1 object(s):
+    [32, 36) 'counter.addr' <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_pass_by_ref_bug.cpp:8:19 in threadFunction(void*)
+Shadow bytes around the buggy address:
+  0x7c6a20bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c6a20bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c6a20bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c6a20bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7c6a20bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7c6a20c00000: f1 f1 f1 f1 00 f3 f3 f3 f5 f5 f5 f5[f5]f5 f5 f5
+

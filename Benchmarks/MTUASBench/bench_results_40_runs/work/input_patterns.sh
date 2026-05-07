@@ -1,0 +1,15 @@
+USER_INPUT_PATTERNS=(
+    \\bcin\\s\*\>\>
+    \\bgetline\\s\*\\\(
+    \\bscanf\\s\*\\\(
+    \\bfscanf\\s\*\\\(stdin
+    \\bfgets\\s\*\\\(
+    \\bgetchar\\s\*\\\(
+    \\bgets\\s\*\\\(
+    \\bread\\s\*\\\(\\s\*STDIN_FILENO
+    \\bgetc\\s\*\\\(\\s\*stdin
+    \\bfgetc\\s\*\\\(\\s\*stdin
+    std::cin
+    \\bargc\\b.\*\\bargv\\b
+    \\bargv\\s\*\\\[
+)

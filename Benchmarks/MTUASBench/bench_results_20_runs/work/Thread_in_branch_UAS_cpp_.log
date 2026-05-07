@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_branch_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_in_branch_UAS.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (26 total attempts, 6 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 6
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 20
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

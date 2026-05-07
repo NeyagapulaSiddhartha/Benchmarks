@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: multiple_joins_5_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (141 total attempts, 41 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 41
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_with_loops_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_with_loops_bug.cpp
+
+  Compiled OK
+
+  Results over 40 run(s) (62 total attempts, 22 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 22
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 40
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

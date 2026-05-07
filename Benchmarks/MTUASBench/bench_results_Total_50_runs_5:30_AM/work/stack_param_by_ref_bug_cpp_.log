@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: stack_param_by_ref_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (68 total attempts, 18 segfaults):
+    ASan error caught  : 20
+    Segfaults          : 18
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 30
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==870667==ERROR: AddressSanitizer: stack-use-after-return on address 0x754310200020 at pc 0x5cc18c9e4942 bp 0x75430f3fedf0 sp 0x75430f3fede8
+READ of size 4 at 0x754310200020 thread T1
+    #0 0x5cc18c9e4941 in thread_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_bug.cpp:23:50
+    #1 0x75431229caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x754312329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x754310200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5cc18c9e49af in threadFunction() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_bug.cpp:33
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 34) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_bug.cpp:23:50 in thread_func(void*)
+Shadow bytes around the buggy address:
+  0x7543101ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7543101ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7543101ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7543101fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7543101fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x754310200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

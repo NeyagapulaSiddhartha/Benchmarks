@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (79 total attempts, 29 segfaults):
+    ASan error caught  : 7
+    Segfaults          : 29
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 43
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3652948==ERROR: AddressSanitizer: stack-use-after-return on address 0x736414a00020 at pc 0x57a71b1e4968 bp 0x736413bfee00 sp 0x736413bfedf8
+READ of size 4 at 0x736414a00020 thread T1
+

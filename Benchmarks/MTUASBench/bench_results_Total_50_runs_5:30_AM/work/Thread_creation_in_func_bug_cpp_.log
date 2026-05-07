@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_creation_in_func_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_creation_in_func_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (65 total attempts, 15 segfaults):
+    ASan error caught  : 15
+    Segfaults          : 15
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 35
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1054738==ERROR: AddressSanitizer: stack-use-after-return on address 0x740557200020 at pc 0x5d0ed8118942 bp 0x7405561fedf0 sp 0x7405561fede8
+READ of size 4 at 0x740557200020 thread T1
+    #0 0x5d0ed8118941 in task(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_creation_in_func_bug.cpp:16:59
+    #1 0x74055929caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x740559329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x740557200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5d0ed81189cf in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_creation_in_func_bug.cpp:24
+
+  This frame has 1 object(s):
+    [32, 36) 'localVar' (line 25) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_creation_in_func_bug.cpp:16:59 in task(void*)
+Shadow bytes around the buggy address:
+  0x7405571ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7405571ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7405571ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7405571fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7405571fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x740557200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

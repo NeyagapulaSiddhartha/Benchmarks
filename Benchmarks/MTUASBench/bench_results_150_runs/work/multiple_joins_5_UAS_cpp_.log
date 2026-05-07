@@ -1,0 +1,31 @@
+──────────────────────────────────────────────────────────────────────
+FILE: multiple_joins_5_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (199 total attempts, 49 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 49
+    Large-number output: 5  (ASan missed, UAS visible in output)
+    Clean runs         : 145
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Value of x is:Value of x is:Value of x is:101010
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+doing some work in thread 
+
+doing some work in thread doing some work in thread 
+
+doing some work in thread 
+

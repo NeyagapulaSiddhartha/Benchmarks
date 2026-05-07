@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_1_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_1_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (258 total attempts, 58 segfaults):
+    ASan error caught  : 90
+    Segfaults          : 58
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 110
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1713880==ERROR: AddressSanitizer: stack-use-after-return on address 0x7fef43400020 at pc 0x56d9bb915942 bp 0x7fef424fedf0 sp 0x7fef424fede8
+READ of size 4 at 0x7fef43400020 thread T1
+    #0 0x56d9bb915941 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_1_two_UAS_bug.cpp:20:59
+    #1 0x7fef4549caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7fef45529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7fef43400020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x56d9bb915aaf in a() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_1_two_UAS_bug.cpp:49
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 50) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_1_two_UAS_bug.cpp:20:59 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x7fef433ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fef433ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fef433ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fef433fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fef433fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7fef43400000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

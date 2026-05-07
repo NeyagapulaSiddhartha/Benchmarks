@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_for_loop_2_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (131 total attempts, 31 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 31
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1227519==ERROR: AddressSanitizer: stack-use-after-return on address 0x7caa489000c0 at pc 0x57353491c999 bp 0x7caa478fee10 sp 0x7caa478fee08
+READ of size 4 at 0x7caa489000c0 thread T1
+    #0 0x57353491c998 in runFunc1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:12:13
+    #1 0x7caa4a89caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7caa4a929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7caa489000c0 is located in stack of thread T0 at offset 64 in frame
+    #0 0x57353491ca7f in runThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:27
+
+  This frame has 3 object(s):
+    [32, 40) 'tid' (line 31)
+    [64, 68) 'z' (line 33) <== Memory access at offset 64 is inside this variable
+    [80, 84) 'z3' (line 36)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:12:13 in runFunc1(void*)
+Shadow bytes around the buggy address:
+  0x7caa488ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7caa488ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7caa488fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7caa488fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

@@ -1,0 +1,74 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_1_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_1_Main_join_UAS_bug.cpp
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_1_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_1_Main_join_UAS_bug.cpp
+
+  Compiled OK
+  Compiled OK
+
+  Results over 50 run(s) (65 total attempts, 15 segfaults):
+    ASan error caught  : 18
+    Segfaults          : 15
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 32
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==302026==ERROR: AddressSanitizer: stack-use-after-return on address 0x7bb47c200020 at pc 0x5cd2eb07c942 bp 0x7bb4788f1df0 sp 0x7bb4788f1de8
+READ of size 4 at 0x7bb47c200020 thread T5
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0xc
+error: decoding address ranges: invalid range list offset 0xfa35c
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1713
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x175a
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x17e1
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1bde
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1f42
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x3bfa
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x3c3f
+error: decoding address ranges: invalid range list offset 0x45a621
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+
+
+  Results over 50 run(s) (61 total attempts, 11 segfaults):
+    ASan error caught  : 13
+    Segfaults          : 11
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 37
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==295283==ERROR: AddressSanitizer: stack-use-after-return on address 0x7c5e7f800020 at pc 0x5d4798edc942 bp 0x7c5e7bef1df0 sp 0x7c5e7bef1de8
+READ of size 4 at 0x7c5e7f800020 thread T5
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0xc
+error: decoding address ranges: invalid range list offset 0xfa35c
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1713
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x175a
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x17e1
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1bde
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x1f42
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x3bfa
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+error: decoding address ranges: invalid range list offset 0x3c3f
+error: decoding address ranges: invalid range list offset 0x45a621
+error: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+

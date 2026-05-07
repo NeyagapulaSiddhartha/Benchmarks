@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (264 total attempts, 64 segfaults):
+    ASan error caught  : 61
+    Segfaults          : 64
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 139
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1573059==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7a219c000030 at pc 0x5d2cbe9ac942 bp 0x7a219aefedf0 sp 0x7a219aefede8
+READ of size 4 at 0x7a219c000030 thread T1
+    #0 0x5d2cbe9ac941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59
+    #1 0x7a219de9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7a219df29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7a219c000030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5d2cbe9ac9cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:33
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 38)
+    [48, 52) 'x2' (line 38) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x7a219bfffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a219bfffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a219bfffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a219bffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7a219bffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

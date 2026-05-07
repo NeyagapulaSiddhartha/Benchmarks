@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: stack_param_by_ref_with_2_threads_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (275 total attempts, 75 segfaults):
+    ASan error caught  : 23
+    Segfaults          : 75
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 177
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1641821==ERROR: AddressSanitizer: stack-use-after-return on address 0x7402e6a00030 at pc 0x5d5db28fe942 bp 0x7402e50fddf0 sp 0x7402e50fdde8
+READ of size 4 at 0x7402e6a00030 thread T2
+    #0 0x5d5db28fe941 in thread_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:49:46
+    #1 0x7402e8a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7402e8b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7402e6a00030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5d5db28fe9af in threadFunction() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:60
+
+  This frame has 2 object(s):
+    [32, 36) 'x' (line 61)
+    [48, 52) 'y' (line 62) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Object_patterns/stack_param_by_ref_with_2_threads_2_UAS_bug.cpp:49:46 in thread_func(void*)
+Shadow bytes around the buggy address:
+  0x7402e69ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7402e69ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7402e69ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7402e69fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7402e69fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

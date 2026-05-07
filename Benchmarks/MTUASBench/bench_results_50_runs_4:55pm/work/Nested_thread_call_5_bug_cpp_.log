@@ -1,0 +1,45 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_5_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (67 total attempts, 17 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 17
+    Large-number output: 1  (ASan missed, UAS visible in output)
+    Clean runs         : 49
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Main thread is running. 
+Level 1 thread is running.
+Level 2 thread is running.
+Level 3 thread is running.
+Level 4 thread is running.
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+ doing some work in level 4 
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_5_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (73 total attempts, 23 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 23
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: thread_creation_various_scopes_3_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_creation_multiple_scopes/thread_creation_various_scopes_3_bug.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (25 total attempts, 5 segfaults):
+    ASan error caught  : 20
+    Segfaults          : 5
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==806978==ERROR: AddressSanitizer: stack-use-after-scope on address 0x775731b00050 at pc 0x5e614df43a98 bp 0x77572f3fbe00 sp 0x77572f3fbdf8
+READ of size 4 at 0x775731b00050 thread T4
+    #0 0x5e614df43a97 in runLocalThread4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_creation_multiple_scopes/thread_creation_various_scopes_3_bug.cpp:34:44
+    #1 0x775733a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x775733b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x775731b00050 is located in stack of thread T0 at offset 80 in frame
+    #0 0x5e614df43c7f in main /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_creation_multiple_scopes/thread_creation_various_scopes_3_bug.cpp:65
+
+  This frame has 4 object(s):
+    [32, 36) 's1_var' (line 69)
+    [48, 52) 's2_var' (line 74)
+    [64, 68) 's3_var' (line 78)
+    [80, 84) 'sn_var' (line 83) <== Memory access at offset 80 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_creation_multiple_scopes/thread_creation_various_scopes_3_bug.cpp:34:44 in runLocalThread4(void*)
+Shadow bytes around the buggy address:
+  0x775731affd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x775731affe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x775731affe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

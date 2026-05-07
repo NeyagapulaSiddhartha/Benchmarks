@@ -1,0 +1,34 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_4_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (277 total attempts, 77 segfaults):
+    ASan error caught  : 8
+    Segfaults          : 77
+    Large-number output: 104  (ASan missed, UAS visible in output)
+    Clean runs         : 88
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+
+
+  Results over 200 run(s) (233 total attempts, 33 segfaults):
+    ASan error caught  : 6
+    Segfaults          : 33
+    Large-number output: 102  (ASan missed, UAS visible in output)
+    Clean runs         : 92
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+

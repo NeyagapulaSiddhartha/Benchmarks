@@ -1,0 +1,48 @@
+Files Skipped — Name Filter
+Generated: Tue Apr 28 12:15:52 UTC 2026
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_copy.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_nested_scope.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_no_bug.cpp
+  Reason: name contains 'no' — likely a non-buggy variant
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_simple.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/diamond_problem_no_bug.cpp
+  Reason: name contains 'no' — likely a non-buggy variant
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_cast_SF.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_upcast.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_SF.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_main_join_SF.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/static_downcast.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable2_SF.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF.cpp
+  Reason: name does not contain 'UAS' or 'bug'
+
+FILE: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_no_bug.cpp
+  Reason: name contains 'no' — likely a non-buggy variant
+

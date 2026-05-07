@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: dynamic_downcast_bug_3_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (137 total attempts, 37 segfaults):
+    ASan error caught  : 99
+    Segfaults          : 37
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 1
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1282227==ERROR: AddressSanitizer: stack-use-after-return on address 0x74460b700048 at pc 0x56f46d2d1def bp 0x744609dfddc0 sp 0x744609dfddb8
+READ of size 4 at 0x74460b700048 thread T2
+    #0 0x56f46d2d1dee in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:14:44
+    #1 0x56f46d2d19dc in runThread2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:51:14
+    #2 0x74460d49caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x74460d529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x74460b700048 is located in stack of thread T0 at offset 72 in frame
+    #0 0x56f46d2d1a5f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:59
+
+  This frame has 2 object(s):
+    [32, 48) 'a1Obj' (line 60)
+    [64, 80) 'a2Obj' (line 61) <== Memory access at offset 72 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/dynamic_downcast_bug_3_UAS_SF.cpp:14:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x74460b6ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74460b6ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74460b6ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74460b6fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

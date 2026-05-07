@@ -1,0 +1,44 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_5_Main_join_UAS=1.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_5_Main_join_UAS=1.cpp
+
+  Compiled OK
+
+  Results over 5 run(s) (8 total attempts, 3 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 3
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 4
+    Execution time     : 30.954s  (valid runs only)
+
+  Thread fault breakdown (1 ASan catches across 1 unique thread(s)):
+    pthread_create@L208  :  2 catch(es)  (200% of all ASan catches)
+
+  Per-bin breakdown (10 valid runs per bin):
+    Runs   1-  5 :  1 /  5 caught
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3271218==ERROR: AddressSanitizer: stack-overflow on address 0x7acb031e1020 (pc 0x5b5ef223194a bp 0x7acb031d6e40 sp 0x7acb031d6e00 T5)
+error: failed to decompress '.debug_aranges', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_info', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_abbrev', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_line', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_str', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_line_str', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_loclists', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+error: failed to decompress '.debug_rnglists', LLVM was not built with LLVM_ENABLE_ZLIB or did not find zlib at build time
+    #0 0x5b5ef223194a in taskLevel5(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_5_Main_join_UAS=1.cpp:17:59
+    #1 0x7acb0ac9caa3  (/lib/x86_64-linux-gnu/libc.so.6+0x9caa3) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)
+    #2 0x7acb0ad29c6b  (/lib/x86_64-linux-gnu/libc.so.6+0x129c6b) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)
+
+SUMMARY: AddressSanitizer: stack-overflow /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_5_Main_join_UAS=1.cpp:17:59 in taskLevel5(void*)
+Thread T5 created by T4 here:
+    #0 0x5b5ef21dcfca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+    #1 0x5b5ef2231af0 in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_5_Main_join_UAS=1.cpp:30:5
+    #2 0x7acb0ac9caa3  (/lib/x86_64-linux-gnu/libc.so.6+0x9caa3) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)
+
+Thread T4 created by T3 here:
+    #0 0x5b5ef21dcfca in __interceptor_pthread_create /tmp/llvm_release/final/llvm-project/compiler-rt/lib/asan/asan_interceptors.cpp:208:3
+

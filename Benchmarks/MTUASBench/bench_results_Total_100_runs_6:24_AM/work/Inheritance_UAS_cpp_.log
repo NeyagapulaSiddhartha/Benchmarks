@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Inheritance_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (121 total attempts, 21 segfaults):
+    ASan error caught  : 6
+    Segfaults          : 21
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 94
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1282440==ERROR: AddressSanitizer: stack-use-after-return on address 0x71b7eac00020 at pc 0x5cf9a12d9ac7 bp 0x71b7e9bfedf0 sp 0x71b7e9bfede8
+READ of size 4 at 0x71b7eac00020 thread T1
+    #0 0x5cf9a12d9ac6 in Base::display() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_UAS.cpp:12:40
+    #1 0x5cf9a12d98bc in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_UAS.cpp:31:14
+    #2 0x71b7eca9caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x71b7ecb29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x71b7eac00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5cf9a12d98df in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_UAS.cpp:35
+
+  This frame has 1 object(s):
+    [32, 40) 'derivedObj' (line 36) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_UAS.cpp:12:40 in Base::display()
+Shadow bytes around the buggy address:
+  0x71b7eabffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71b7eabffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71b7eabffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71b7eabfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71b7eabfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

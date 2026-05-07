@@ -1,0 +1,501 @@
+
+======================================================================
+       MTUASBench — ASan Benchmark Analysis Script (PARALLEL)
+======================================================================
+
+  Clang++  : ../../llvm-16.0.0.obj/bin/clang++
+  Bench dir: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/
+  Runs     : 100  |  Jobs: 20
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_1_4_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_4_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (136 total attempts, 36 segfaults):
+    ASan error caught  : 4
+    Segfaults          : 36
+    Large-number output: 16  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_1_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (139 total attempts, 39 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 39
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_1.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_1.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_2.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_2.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_2_false_positive.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_2_false_positive.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_2_join_in_main_no_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_2_join_in_main_no_bug.cpp
+
+  [SKIPPED — NAME FILTER] name contains 'no' — likely a non-buggy variant
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_3_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (134 total attempts, 34 segfaults):
+    ASan error caught  : 14
+    Segfaults          : 34
+    Large-number output: 10  (ASan missed, UAS visible in output)
+    Clean runs         : 76
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==392979==ERROR: AddressSanitizer: stack-use-after-return on address 0x78cdf5a00020 at pc 0x5da03b046942 bp 0x78cdf40fddf0 sp 0x78cdf40fdde8
+READ of size 4 at 0x78cdf5a00020 thread T2
+    #0 0x5da03b046941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_2_UAS_bug.cpp:19:59
+    #1 0x78cdf789caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x78cdf7929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x78cdf5a00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5da03b0469cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_2_UAS_bug.cpp:28
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 29) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_2_UAS_bug.cpp:19:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x78cdf59ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78cdf59ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78cdf59ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78cdf59fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78cdf59fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x78cdf5a00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_3_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (138 total attempts, 38 segfaults):
+    ASan error caught  : 23
+    Segfaults          : 38
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 77
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==391188==ERROR: AddressSanitizer: stack-use-after-return on address 0x760101000020 at pc 0x5f9450178942 bp 0x7601000fedf0 sp 0x7601000fede8
+READ of size 4 at 0x760101000020 thread T1
+    #0 0x5f9450178941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_bug.cpp:19:59
+    #1 0x76010309caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x760103129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x760101000020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5f94501789cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_bug.cpp:28
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 29) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3_bug.cpp:19:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x760100fffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x760100fffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x760100fffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x760100ffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x760100ffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x760101000000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_3.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_3.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_4_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_2_UAS_bug.cpp
+
+  [SKIPPED — USER INPUT]
+    Pattern : cin\s*>>
+    At line : 29:    cin >> x;
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_4_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (130 total attempts, 30 segfaults):
+    ASan error caught  : 37
+    Segfaults          : 30
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 63
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==391237==ERROR: AddressSanitizer: stack-use-after-return on address 0x79f2a2c00020 at pc 0x5afed44ba942 bp 0x79f2a1dfedf0 sp 0x79f2a1dfede8
+READ of size 4 at 0x79f2a2c00020 thread T1
+    #0 0x5afed44ba941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_bug.cpp:18:59
+    #1 0x79f2a4c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x79f2a4d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x79f2a2c00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5afed44ba9cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_bug.cpp:27
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 28) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4_bug.cpp:18:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x79f2a2bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79f2a2bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79f2a2bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79f2a2bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79f2a2bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x79f2a2c00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_4.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_4.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (121 total attempts, 21 segfaults):
+    ASan error caught  : 25
+    Segfaults          : 21
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 75
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==391365==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7927afe00030 at pc 0x5ea39bf0e942 bp 0x7927aecfedf0 sp 0x7927aecfede8
+READ of size 4 at 0x7927afe00030 thread T1
+    #0 0x5ea39bf0e941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59
+    #1 0x7927b1c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7927b1d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7927afe00030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5ea39bf0e9cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:33
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 38)
+    [48, 52) 'x2' (line 38) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp:23:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x7927afdffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7927afdfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (123 total attempts, 23 segfaults):
+    ASan error caught  : 33
+    Segfaults          : 23
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 67
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==391256==ERROR: AddressSanitizer: stack-use-after-return on address 0x7f6de2a00020 at pc 0x651df3133942 bp 0x7f6de1afedf0 sp 0x7f6de1afede8
+READ of size 4 at 0x7f6de2a00020 thread T1
+    #0 0x651df3133941 in UseOfData(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:19:59
+    #1 0x7f6de4a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7f6de4b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7f6de2a00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x651df31339cf in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:28
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 34) <== Memory access at offset 32 is inside this variable
+    [48, 52) 'x2' (line 53)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_bug.cpp:19:59 in UseOfData(void*)
+Shadow bytes around the buggy address:
+  0x7f6de29ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f6de29ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f6de29ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f6de29fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7f6de29fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (132 total attempts, 32 segfaults):
+    ASan error caught  : 18
+    Segfaults          : 32
+    Large-number output: 13  (ASan missed, UAS visible in output)
+    Clean runs         : 69
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==392334==ERROR: AddressSanitizer: stack-use-after-return on address 0x79b815800020 at pc 0x58c85b05a942 bp 0x79b8146fedf0 sp 0x79b8146fede8
+READ of size 4 at 0x79b815800020 thread T1
+    #0 0x58c85b05a941 in UseOfData1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:20:59
+    #1 0x79b81769caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x79b817729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x79b815800020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x58c85b05aaef in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:43
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 44) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:20:59 in UseOfData1(void*)
+Shadow bytes around the buggy address:
+  0x79b8157ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79b8157ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79b8157ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79b8157fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79b8157fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x79b815800000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (148 total attempts, 48 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 48
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_7_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (144 total attempts, 44 segfaults):
+    ASan error caught  : 8
+    Segfaults          : 44
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 92
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==393121==ERROR: AddressSanitizer: stack-use-after-return on address 0x7e582fc00030 at pc 0x5a6a6373fa62 bp 0x7e582eafedf0 sp 0x7e582eafede8
+READ of size 4 at 0x7e582fc00030 thread T1
+    #0 0x5a6a6373fa61 in UseOfData2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:34:59
+    #1 0x7e5831a9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7e5831b29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7e582fc00030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5a6a6373faef in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:43
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 44)
+    [48, 52) 'x2' (line 45) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:34:59 in UseOfData2(void*)
+Shadow bytes around the buggy address:
+  0x7e582fbffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7e582fbffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7e582fbffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7e582fbfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7e582fbfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_7_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (133 total attempts, 33 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 33
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 100
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_7.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7.cpp
+
+  [SKIPPED — NAME FILTER] name does not contain 'UAS' or 'bug'
+
+────────────────────────────────────────────────────────────────────────
+
+SUMMARY
+
+  Benchmark                                                    Verdict
+  ──────────────────────────────────────────────────────────── ────────────────────
+
+  context_sensitive_1.cpp                                      SKIP  — Name filter
+  context_sensitive_1_4_UAS_bug.cpp                            FAIL  — ASan caught
+  context_sensitive_1_bug.cpp                                  FAIL  — Segfault only
+  context_sensitive_2.cpp                                      SKIP  — Name filter
+  context_sensitive_2_false_positive.cpp                       SKIP  — Name filter
+  context_sensitive_2_join_in_main_no_bug.cpp                  SKIP  — Name filter
+  context_sensitive_3.cpp                                      SKIP  — Name filter
+  context_sensitive_3_2_UAS_bug.cpp                            FAIL  — ASan caught
+  context_sensitive_3_bug.cpp                                  FAIL  — ASan caught
+  context_sensitive_4.cpp                                      SKIP  — Name filter
+  context_sensitive_4_2_UAS_bug.cpp                            SKIP  — User input
+  context_sensitive_4_bug.cpp                                  FAIL  — ASan caught
+  context_sensitive_5.cpp                                      SKIP  — Name filter
+  context_sensitive_5_2_UAS_bug.cpp                            FAIL  — ASan caught
+  context_sensitive_5_bug.cpp                                  FAIL  — ASan caught
+  context_sensitive_6.cpp                                      SKIP  — Name filter
+  context_sensitive_6_2_UAS_bug.cpp                            FAIL  — ASan caught
+  context_sensitive_6_bug.cpp                                  FAIL  — Segfault only
+  context_sensitive_7.cpp                                      SKIP  — Name filter
+  context_sensitive_7_2_UAS_bug.cpp                            FAIL  — ASan caught
+  context_sensitive_7_bug.cpp                                  FAIL  — Segfault only
+
+────────────────────────────────────────────────────────────────────────
+Per-Category Totals
+────────────────────────────────────────────────────────────────────────
+    ASan caught                : 8
+    ASan missed (garbage out)  : 0
+    Segfault only              : 3
+    Intermittent               : 0
+    Clean / no bug observed    : 0
+    Compile errors             : 0
+    Skipped (user input)       : 1
+    Skipped (name filter)      : 9
+
+────────────────────────────────────────────────────────────────────────
+Aggregate Detection Stats  (over 11 analysed files)
+────────────────────────────────────────────────────────────────────────
+    Bug files attempted        : 11
+    ASan detection rate        : 72%  (8 caught / 11)
+    ASan miss rate             : 27%  (3 missed / 11)
+
+────────────────────────────────────────────────────────────────────────
+Per-Directory Aggregation  (catch rate per 100 runs)
+────────────────────────────────────────────────────────────────────────
+
+  Directory : ../MTUASBench/PTHREAD_VERSION/Context_sentitivity
+  Files run : 11   |   Total valid runs : 1100
+
+    Benchmark                                           Catch rate
+    ──────────────────────────────────────────────────  ────────────
+    context_sensitive_1_4_UAS_bug.cpp                   4 / 100 runs  (4%)
+    context_sensitive_1_bug.cpp                         0 / 100 runs  (0%)
+    context_sensitive_3_2_UAS_bug.cpp                   14 / 100 runs  (14%)
+    context_sensitive_3_bug.cpp                         23 / 100 runs  (23%)
+    context_sensitive_4_bug.cpp                         37 / 100 runs  (37%)
+    context_sensitive_5_2_UAS_bug.cpp                   25 / 100 runs  (25%)
+    context_sensitive_5_bug.cpp                         33 / 100 runs  (33%)
+    context_sensitive_6_2_UAS_bug.cpp                   18 / 100 runs  (18%)
+    context_sensitive_6_bug.cpp                         0 / 100 runs  (0%)
+    context_sensitive_7_2_UAS_bug.cpp                   8 / 100 runs  (8%)
+    context_sensitive_7_bug.cpp                         0 / 100 runs  (0%)
+
+    Average catch rate (mean of files above)            14%
+    Overall catch rate (pooled across all runs)         162 / 1100  (14%)
+
+────────────────────────────────────────────────────────────────────────
+
+────────────────────────────────────────────────────────────────────────
+Output Files
+────────────────────────────────────────────────────────────────────────
+    Full report     : bench_results_20260430_213149/benchmark_report.txt
+    Skipped (input) : bench_results_20260430_213149/skipped_user_input.txt
+    Skipped (name)  : bench_results_20260430_213149/skipped_name_filter.txt
+
+════════════════════════════════════════════════════════════════════════
+Paper-Category Summary Table
+════════════════════════════════════════════════════════════════════════
+
+  Category                                   Buggy  Caught≥1     Never    Avg Catch%
+  ──────────────────────────────────────  ────────  ────────  ────────  ────────────
+
+  Object Patterns                                0         0         0            0%
+  Object Usage Across Threads                    0         0         0            0%
+  Indirect Sharing                               0         0         0            0%
+  Threads Created in Multiple Scopes             0         0         0            0%
+  Context Sensitivity                           11         8         3           14%
+  Thread Handle Type                             0         0         0            0%
+  Nested Thread Calls                            0         0         0            0%
+  Multiple Joins                                 0         0         0            0%
+  Threads Created in a Loop                      0         0         0            0%
+  Join Inside Function                           0         0         0            0%
+  Nested Function Calls                          0         0         0            0%
+  Inheritance Cases                              0         0         0            0%
+
+  ──────────────────────────────────────  ────────  ────────  ────────  ────────────
+  TOTAL / OVERALL                               11         8         3           14%
+
+  Columns:
+    Buggy     = bug files run (name contains 'bug' or 'UAS', not skipped)
+    Caught≥1  = files where ASan fired at least once across all runs
+    Never     = files where ASan never fired (missed every run)
+    Avg Catch% = mean of per-file catch rates within the category
+
+════════════════════════════════════════════════════════════════════════
+

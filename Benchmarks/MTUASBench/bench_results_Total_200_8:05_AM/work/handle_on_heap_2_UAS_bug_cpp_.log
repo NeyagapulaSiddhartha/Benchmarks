@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: handle_on_heap_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_on_heap_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (263 total attempts, 63 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 63
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 200
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

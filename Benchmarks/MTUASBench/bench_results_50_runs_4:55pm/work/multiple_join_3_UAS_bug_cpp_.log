@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: multiple_join_3_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_3_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (63 total attempts, 13 segfaults):
+    ASan error caught  : 36
+    Segfaults          : 13
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 14
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3672393==ERROR: AddressSanitizer: stack-use-after-return on address 0x7567de400020 at pc 0x5e452764e91c bp 0x7567dd4fee00 sp 0x7567dd4fedf8
+READ of size 4 at 0x7567de400020 thread T1
+    #0 0x5e452764e91b in thread_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_3_UAS_bug.cpp:14:46
+    #1 0x7567e049caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7567e0529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7567de400020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5e452764e96f in threadFunction() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_3_UAS_bug.cpp:22
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 23) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_join_3_UAS_bug.cpp:14:46 in thread_func(void*)
+Shadow bytes around the buggy address:
+  0x7567de3ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7567de3ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7567de3ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7567de3fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7567de3fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7567de400000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

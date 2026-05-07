@@ -1,0 +1,34 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/All_join_in_main/Nested_thread_call_4_Main_join_UAS_bug.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_4_Main_join_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_4_Main_join_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (177 total attempts, 27 segfaults):
+    ASan error caught  : 13
+    Segfaults          : 27
+    Large-number output: 17  (ASan missed, UAS visible in output)
+    Clean runs         : 120
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+
+
+  Results over 150 run(s) (200 total attempts, 50 segfaults):
+    ASan error caught  : 1
+    Segfaults          : 50
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 149
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1203108==ERROR: AddressSanitizer: SEGV on unknown address 0x7280597ff020 (pc 0x5e95d73c49de bp 0x728058ff3e40 sp 0x728058ff3e10 T4)
+

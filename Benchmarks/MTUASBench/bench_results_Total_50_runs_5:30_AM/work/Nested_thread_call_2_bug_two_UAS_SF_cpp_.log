@@ -1,0 +1,28 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_two_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_2_bug_two_UAS_SF.cpp
+
+  Compiled OK
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_bug_two_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_2_bug_two_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (65 total attempts, 15 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 15
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+
+
+  Results over 50 run(s) (53 total attempts, 3 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 3
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 50
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

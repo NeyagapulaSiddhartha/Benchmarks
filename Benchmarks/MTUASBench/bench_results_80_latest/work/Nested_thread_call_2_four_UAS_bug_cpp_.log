@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_2_four_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (110 total attempts, 30 segfaults):
+    ASan error caught  : 74
+    Segfaults          : 30
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 6
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==2015935==ERROR: AddressSanitizer: stack-use-after-return on address 0x702e731ff020 at pc 0x5b8bbd85dad4 bp 0x702e70be0d70 sp 0x702e70be0d68
+READ of size 4 at 0x702e731ff020 thread T4
+    #0 0x5b8bbd85dad3 in taskLevel4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:27:78
+    #1 0x702e7749caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x702e77529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x702e731ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_level_0/Nested_thread_call_2_four_UAS_bug.cpp:27:78 in taskLevel4(void*)
+Shadow bytes around the buggy address:
+  0x702e731fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x702e731ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x702e731ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x702e731ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

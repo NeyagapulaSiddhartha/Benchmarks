@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_7_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (57 total attempts, 7 segfaults):
+    ASan error caught  : 46
+    Segfaults          : 7
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 4
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3650208==ERROR: AddressSanitizer: stack-use-after-return on address 0x7439c8e00030 at pc 0x5f92d60fe968 bp 0x7439c7ffee00 sp 0x7439c7ffedf8
+READ of size 4 at 0x7439c8e00030 thread T1
+    #0 0x5f92d60fe967 in UseOfData2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_bug.cpp:21:29
+    #1 0x7439cae9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7439caf29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7439c8e00030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x5f92d60fe99f in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_bug.cpp:26
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 27)
+    [48, 52) 'x2' (line 28) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_bug.cpp:21:29 in UseOfData2(void*)
+Shadow bytes around the buggy address:
+  0x7439c8dffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7439c8dffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7439c8dffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7439c8dfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7439c8dfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

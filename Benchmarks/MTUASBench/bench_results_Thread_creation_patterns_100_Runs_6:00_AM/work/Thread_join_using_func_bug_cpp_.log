@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_join_using_func_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (124 total attempts, 24 segfaults):
+    ASan error caught  : 29
+    Segfaults          : 24
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 71
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1243421==ERROR: AddressSanitizer: stack-use-after-return on address 0x786ad4c00020 at pc 0x5b0c31133942 bp 0x786ad3cfedf0 sp 0x786ad3cfede8
+READ of size 4 at 0x786ad4c00020 thread T1
+    #0 0x5b0c31133941 in threadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_bug.cpp:18:59
+    #1 0x786ad6c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x786ad6d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x786ad4c00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5b0c31133a1f in createThread(int) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_bug.cpp:37
+
+  This frame has 1 object(s):
+    [32, 36) 'x.addr' <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/creation_join_using_func/Thread_join_using_func_bug.cpp:18:59 in threadTask(void*)
+Shadow bytes around the buggy address:
+  0x786ad4bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x786ad4bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x786ad4bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x786ad4bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x786ad4bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x786ad4c00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

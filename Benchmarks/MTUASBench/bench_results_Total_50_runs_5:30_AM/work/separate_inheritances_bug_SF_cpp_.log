@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: separate_inheritances_bug_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (84 total attempts, 34 segfaults):
+    ASan error caught  : 50
+    Segfaults          : 34
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==849056==ERROR: AddressSanitizer: stack-use-after-return on address 0x7bed5eb00020 at pc 0x5bdbeea2d8d6 bp 0x7bed5d9fee10 sp 0x7bed5d9fee08
+READ of size 8 at 0x7bed5eb00020 thread T1
+    #0 0x5bdbeea2d8d5 in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:43:17
+    #1 0x7bed6089caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7bed60929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7bed5eb00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5bdbeea2d91f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:47
+
+  This frame has 2 object(s):
+    [32, 40) 'derived1Obj' (line 48) <== Memory access at offset 32 is inside this variable
+    [64, 80) 'derived2Obj' (line 49)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/separate_inheritances_bug_SF.cpp:43:17 in threadFunction(void*)
+Shadow bytes around the buggy address:
+  0x7bed5eaffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bed5eaffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bed5eaffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bed5eafff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bed5eafff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

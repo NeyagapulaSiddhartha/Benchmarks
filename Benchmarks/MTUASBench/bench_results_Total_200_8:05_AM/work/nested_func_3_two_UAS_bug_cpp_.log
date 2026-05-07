@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_3_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (291 total attempts, 91 segfaults):
+    ASan error caught  : 200
+    Segfaults          : 91
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1714717==ERROR: AddressSanitizer: stack-use-after-return on address 0x75751e200020 at pc 0x6417993cf942 bp 0x75751d3fedf0 sp 0x75751d3fede8
+READ of size 4 at 0x75751e200020 thread T1
+    #0 0x6417993cf941 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_two_UAS_bug.cpp:19:59
+    #1 0x75752029caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x757520329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x75751e200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x6417993cfacf in b() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_two_UAS_bug.cpp:54
+
+  This frame has 1 object(s):
+    [32, 36) 'y' (line 55) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_3_two_UAS_bug.cpp:19:59 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x75751e1ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75751e1ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75751e1ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75751e1fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75751e1fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x75751e200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

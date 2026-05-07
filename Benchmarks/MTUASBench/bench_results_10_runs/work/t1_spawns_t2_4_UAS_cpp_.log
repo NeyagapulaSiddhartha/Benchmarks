@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_4_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_4_UAS.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (13 total attempts, 3 segfaults):
+    ASan error caught  : 6
+    Segfaults          : 3
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 4
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==747442==ERROR: AddressSanitizer: SEGV on unknown address 0x74b980fff020 (pc 0x5c60b62a48b0 bp 0x74b9807f3e40 sp 0x74b9807f3e10 T3)
+==747442==The signal is caused by a READ memory access.
+

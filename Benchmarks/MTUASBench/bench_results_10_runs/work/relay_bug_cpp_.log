@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: relay_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Object_uses_across_threads/relay_bug.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (16 total attempts, 6 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 6
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 10
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

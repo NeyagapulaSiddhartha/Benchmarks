@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_for_loop_2_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (143 total attempts, 43 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 43
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1602541==ERROR: AddressSanitizer: stack-use-after-scope on address 0x71d93f3000d0 at pc 0x56fbecbefa08 bp 0x71d93cafbe00 sp 0x71d93cafbdf8
+READ of size 4 at 0x71d93f3000d0 thread T4
+    #0 0x56fbecbefa07 in runFunc2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:19:62
+    #1 0x71d94129caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x71d941329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x71d93f3000d0 is located in stack of thread T0 at offset 80 in frame
+    #0 0x56fbecbefa3f in runThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:26
+
+  This frame has 3 object(s):
+    [32, 40) 'tid' (line 30)
+    [64, 68) 'z' (line 32)
+    [80, 84) 'z3' (line 35) <== Memory access at offset 80 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-scope /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_for_loop_2_bug.cpp:19:62 in runFunc2(void*)
+Shadow bytes around the buggy address:
+  0x71d93f2ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d93f2ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d93f2fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d93f2fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

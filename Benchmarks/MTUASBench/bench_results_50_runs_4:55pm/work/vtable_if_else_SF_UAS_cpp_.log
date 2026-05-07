@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: vtable_if_else_SF_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (75 total attempts, 25 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 25
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 48
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==3670760==ERROR: AddressSanitizer: stack-use-after-return on address 0x769937e00020 at pc 0x5c5e631008c7 bp 0x769936efede0 sp 0x769936efedd8
+READ of size 8 at 0x769937e00020 thread T1
+    #0 0x5c5e631008c6 in threadFunc(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:53:22
+    #1 0x769939e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x769939f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x769937e00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5c5e631009cf in startThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:66
+
+  This frame has 1 object(s):
+    [32, 48) 'DerivedObj' (line 67) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:53:22 in threadFunc(void*)
+Shadow bytes around the buggy address:
+  0x769937dffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769937dffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769937dffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769937dfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x769937dfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x769937e00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

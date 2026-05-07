@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: handle_on_heap_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_handle_patterns/handle_on_heap_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (12 total attempts, 2 segfaults):
+    ASan error caught  : 3
+    Segfaults          : 2
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 7
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==761561==ERROR: AddressSanitizer: stack-use-after-return on address 0x727e63800020 at pc 0x5d6e6f5ab8c8 bp 0x727e628fee00 sp 0x727e628fedf8
+READ of size 4 at 0x727e63800020 thread T1
+

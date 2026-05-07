@@ -1,0 +1,6 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_2_join_in_main_no_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_2_join_in_main_no_bug.cpp
+
+  [SKIPPED — NAME FILTER] name contains 'no' — likely a non-buggy variant
+

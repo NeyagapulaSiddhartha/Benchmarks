@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: vtable_if_else_SF_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (111 total attempts, 31 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 31
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 78
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1942620==ERROR: AddressSanitizer: stack-use-after-return on address 0x78a284c00020 at pc 0x5c640514a918 bp 0x78a283cfede0 sp 0x78a283cfedd8
+READ of size 8 at 0x78a284c00020 thread T1
+    #0 0x5c640514a917 in threadFunc(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:54:22
+    #1 0x78a286c9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x78a286d29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x78a284c00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5c640514a9cf in startThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:66
+
+  This frame has 1 object(s):
+    [32, 48) 'DerivedObj' (line 67) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_SF_UAS.cpp:54:22 in threadFunc(void*)
+Shadow bytes around the buggy address:
+  0x78a284bffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78a284bffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78a284bffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78a284bfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x78a284bfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x78a284c00000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

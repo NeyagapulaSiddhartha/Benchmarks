@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_7_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (253 total attempts, 53 segfaults):
+    ASan error caught  : 17
+    Segfaults          : 53
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 183
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1611192==ERROR: AddressSanitizer: stack-use-after-return on address 0x7faeba600030 at pc 0x64975cedda62 bp 0x7faeb94fedf0 sp 0x7faeb94fede8
+READ of size 4 at 0x7faeba600030 thread T1
+    #0 0x64975cedda61 in UseOfData2(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:34:59
+    #1 0x7faebc49caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7faebc529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7faeba600030 is located in stack of thread T0 at offset 48 in frame
+    #0 0x64975ceddaef in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:43
+
+  This frame has 2 object(s):
+    [32, 36) 'x1' (line 44)
+    [48, 52) 'x2' (line 45) <== Memory access at offset 48 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_7_2_UAS_bug.cpp:34:59 in UseOfData2(void*)
+Shadow bytes around the buggy address:
+  0x7faeba5ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7faeba5ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7faeba5ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7faeba5fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7faeba5fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

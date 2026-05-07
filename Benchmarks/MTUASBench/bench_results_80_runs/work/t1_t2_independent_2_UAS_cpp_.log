@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_t2_independent_2_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (99 total attempts, 19 segfaults):
+    ASan error caught  : 58
+    Segfaults          : 19
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 22
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==958573==ERROR: AddressSanitizer: unknown-crash on address 0x74005d3fe030 at pc 0x5d03adcdbb50 bp 0x74005e6fde00 sp 0x74005e6fddf8
+READ of size 4 at 0x74005d3fe030 thread T2
+    #0 0x5d03adcdbb4f in t2_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:24:29
+    #1 0x740061e9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x740061f29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x74005d3fe030 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_t2_independent_2_UAS.cpp:24:29 in t2_func(void*)
+Shadow bytes around the buggy address:
+  0x74005d3fdd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fde00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fde80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fdf00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fdf80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x74005d3fe000: 00 00 00 00 00 00[00]00 00 00 00 00 00 00 00 00
+  0x74005d3fe080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fe100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fe180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fe200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74005d3fe280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

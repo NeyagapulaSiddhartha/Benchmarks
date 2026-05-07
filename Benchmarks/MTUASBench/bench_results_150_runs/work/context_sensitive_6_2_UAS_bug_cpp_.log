@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_6_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (191 total attempts, 41 segfaults):
+    ASan error caught  : 150
+    Segfaults          : 41
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1106335==ERROR: AddressSanitizer: stack-use-after-return on address 0x76a7b4200020 at pc 0x5a9908ee48d8 bp 0x76a7b31fee00 sp 0x76a7b31fedf8
+READ of size 4 at 0x76a7b4200020 thread T1
+    #0 0x5a9908ee48d7 in UseOfData1(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:14:29
+    #1 0x76a7b609caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x76a7b6129c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x76a7b4200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5a9908ee499f in spawnThreads() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:25
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 26) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_6_2_UAS_bug.cpp:14:29 in UseOfData1(void*)
+Shadow bytes around the buggy address:
+  0x76a7b41ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a7b41ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a7b41ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a7b41fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a7b41fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x76a7b4200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

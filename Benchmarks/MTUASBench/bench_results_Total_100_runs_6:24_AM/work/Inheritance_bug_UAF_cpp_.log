@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Inheritance_bug_UAF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_bug_UAF.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (131 total attempts, 31 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 31
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1282154==ERROR: AddressSanitizer: stack-use-after-return on address 0x7b7249800020 at pc 0x5fee6e6108e0 bp 0x7b72488fee10 sp 0x7b72488fee08
+READ of size 8 at 0x7b7249800020 thread T1
+    #0 0x5fee6e6108df in threadFunction(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_bug_UAF.cpp:27:14
+    #1 0x7b724b89caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7b724b929c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7b7249800020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5fee6e61092f in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_bug_UAF.cpp:31
+
+  This frame has 1 object(s):
+    [32, 48) 'derivedObj' (line 32) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/Inheritance_bug_UAF.cpp:27:14 in threadFunction(void*)
+Shadow bytes around the buggy address:
+  0x7b72497ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7b72497ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7b72497ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7b72497fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7b72497fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7b7249800000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

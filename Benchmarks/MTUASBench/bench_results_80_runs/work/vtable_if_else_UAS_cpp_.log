@@ -1,0 +1,14 @@
+──────────────────────────────────────────────────────────────────────
+FILE: vtable_if_else_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/vtable_if_else_UAS.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (114 total attempts, 34 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 34
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 80
+
+  [VERDICT] FAIL — SEGFAULT detected, ASan silent
+

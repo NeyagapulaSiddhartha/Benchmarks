@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_do_while_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_bug.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (133 total attempts, 33 segfaults):
+    ASan error caught  : 7
+    Segfaults          : 33
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 93
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1581479==ERROR: AddressSanitizer: stack-use-after-return on address 0x7fb4ccf00020 at pc 0x5f0ee6cb0997 bp 0x7fb4bbe8ae00 sp 0x7fb4bbe8adf8
+READ of size 4 at 0x7fb4ccf00020 thread T28
+    #0 0x5f0ee6cb0996 in threadTask(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_bug.cpp:14:61
+    #1 0x7fb4cee9caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7fb4cef29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7fb4ccf00020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5f0ee6cb0a6f in spawnThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_bug.cpp:24
+
+  This frame has 2 object(s):
+    [32, 36) 'sharedData' (line 26) <== Memory access at offset 32 is inside this variable
+    [48, 56) 'tid' (line 30)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_bug.cpp:14:61 in threadTask(void*)
+Shadow bytes around the buggy address:
+  0x7fb4cceffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fb4cceffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fb4cceffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fb4ccefff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7fb4ccefff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

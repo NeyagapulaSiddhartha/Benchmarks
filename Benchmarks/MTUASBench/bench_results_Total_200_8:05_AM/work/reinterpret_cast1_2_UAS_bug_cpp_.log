@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: reinterpret_cast1_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (270 total attempts, 70 segfaults):
+    ASan error caught  : 197
+    Segfaults          : 70
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 3
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1570621==ERROR: AddressSanitizer: stack-use-after-return on address 0x7ef3fce00028 at pc 0x5e4123d46b4f bp 0x7ef3fb5fdde0 sp 0x7ef3fb5fddd8
+READ of size 4 at 0x7ef3fce00028 thread T2
+    #0 0x5e4123d46b4e in A::m2() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:14:44
+    #1 0x5e4123d468bc in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:38:14
+    #2 0x7ef3fee9caa3 in start_thread nptl/pthread_create.c:447:8
+    #3 0x7ef3fef29c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7ef3fce00028 is located in stack of thread T0 at offset 40 in frame
+    #0 0x5e4123d468df in createThread() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:42
+
+  This frame has 1 object(s):
+    [32, 48) 'a1Obj' (line 43) <== Memory access at offset 40 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Inheritance_with_data/reinterpret_cast1_2_UAS_bug.cpp:14:44 in A::m2()
+Shadow bytes around the buggy address:
+  0x7ef3fcdffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ef3fcdffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ef3fcdffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ef3fcdfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ef3fcdfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+

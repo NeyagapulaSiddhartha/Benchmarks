@@ -1,0 +1,31 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_do_while_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_do_while_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 200 run(s) (257 total attempts, 57 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 57
+    Large-number output: 200  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Thread updated sharedData to 101
+Thread updated sharedData to 101
+Thread updated sharedData to 101
+Thread updated sharedData to 101
+Thread updated sharedData to 101
+133298137228992 is joining
+Thread updated sharedData to 101
+Thread updated sharedData to 101
+Thread updated sharedData to 102
+Thread updated sharedData to 102
+133298137228992 is joining
+Thread updated sharedData to 101
+133298137228992 is joining
+Thread updated sharedData to 101
+133298137228992 is joining
+

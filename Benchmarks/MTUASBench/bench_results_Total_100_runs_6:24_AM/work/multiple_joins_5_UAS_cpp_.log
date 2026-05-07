@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: multiple_joins_5_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp
+
+  Compiled OK
+
+  Results over 100 run(s) (144 total attempts, 44 segfaults):
+    ASan error caught  : 100
+    Segfaults          : 44
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1320063==ERROR: AddressSanitizer: stack-use-after-return on address 0x7117dc200020 at pc 0x5c805fab9a62 bp 0x7117d9bfbdf0 sp 0x7117d9bfbde8
+READ of size 4 at 0x7117dc200020 thread T4
+    #0 0x5c805fab9a61 in thread_func4(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp:35:59
+    #1 0x7117de29caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x7117de329c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7117dc200020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x5c805fab9b9f in threadFunction() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp:55
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 56) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Multiple_joins/multiple_joins_5_UAS.cpp:35:59 in thread_func4(void*)
+Shadow bytes around the buggy address:
+  0x7117dc1ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7117dc1ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7117dc1ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7117dc1fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7117dc1fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7117dc200000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+

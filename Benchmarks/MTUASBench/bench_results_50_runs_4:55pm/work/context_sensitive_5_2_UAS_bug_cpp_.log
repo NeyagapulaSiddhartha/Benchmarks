@@ -1,0 +1,31 @@
+──────────────────────────────────────────────────────────────────────
+FILE: context_sensitive_5_2_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Context_sentitivity/context_sensitive_5_2_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 50 run(s) (67 total attempts, 17 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 17
+    Large-number output: 50  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+0
+1
+4
+9
+16
+25
+36
+49
+64
+81
+100
+121
+144
+169
+196
+

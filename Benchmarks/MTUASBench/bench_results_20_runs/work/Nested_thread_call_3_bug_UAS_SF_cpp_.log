@@ -1,0 +1,44 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Nested_thread_call_3_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (25 total attempts, 5 segfaults):
+    ASan error caught  : 3
+    Segfaults          : 5
+    Large-number output: 17  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+
+
+──────────────────────────────────────────────────────────────────────
+FILE: Nested_thread_call_3_bug_UAS_SF.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_thread_call/Thread_start_from_main/Nested_thread_call_3_bug_UAS_SF.cpp
+
+  Compiled OK
+
+  Results over 20 run(s) (30 total attempts, 10 segfaults):
+    ASan error caught  : 0
+    Segfaults          : 10
+    Large-number output: 20  (ASan missed, UAS visible in output)
+    Clean runs         : 0
+
+  [VERDICT] FAIL — Intermittent (garbage output + segfaults, ASan missed)
+
+  --- Sample anomalous output ---
+Main thread is running. 
+Level 1 thread is running.
+Level 2 thread is running.
+Level 2 thread finished after level 3. Current value: 100
+Level 3 thread is running.
+Level 4 thread is running.
+Level 5 thread is running. Modified value: 901732082
+Level 4 thread finished after level 5. Current value: 901732082
+Level 3 thread finished after level 4. Current value: 901732082
+Level 1 thread finished after level 
+Main thread finished after level 1.
+

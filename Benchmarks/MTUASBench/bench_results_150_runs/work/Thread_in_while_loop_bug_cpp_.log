@@ -1,0 +1,18 @@
+──────────────────────────────────────────────────────────────────────
+FILE: Thread_in_while_loop_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Thread_in_loop/Thread_in_while_loop_bug.cpp
+
+  Compiled OK
+
+  Results over 150 run(s) (196 total attempts, 46 segfaults):
+    ASan error caught  : 115
+    Segfaults          : 46
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 35
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1344110==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000010 at pc 0x5b11b85e294b bp 0x7d1a5d5fedb0 sp 0x7d1a5d5feda8
+READ of size 4 at 0x602000000010 thread T1
+

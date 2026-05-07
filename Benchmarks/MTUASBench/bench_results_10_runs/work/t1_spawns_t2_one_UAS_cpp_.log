@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: t1_spawns_t2_one_UAS.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_one_UAS.cpp
+
+  Compiled OK
+
+  Results over 10 run(s) (14 total attempts, 4 segfaults):
+    ASan error caught  : 2
+    Segfaults          : 4
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 8
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==748732==ERROR: AddressSanitizer: unknown-crash on address 0x7758023ff020 at pc 0x5ab06678788c bp 0x7758023f4e10 sp 0x7758023f4e08
+READ of size 4 at 0x7758023ff020 thread T2
+    #0 0x5ab06678788b in t2_func(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_one_UAS.cpp:13:29
+    #1 0x77580669caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x775806729c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x7758023ff020 is a wild pointer inside of access range of size 0x000000000004.
+SUMMARY: AddressSanitizer: unknown-crash /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Sharing_via_global_ptr/t1_spawns_t2_one_UAS.cpp:13:29 in t2_func(void*)
+Shadow bytes around the buggy address:
+  0x7758023fed80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023fee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023fee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023fef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023fef80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7758023ff000: 00 00 00 00[00]00 00 00 00 00 00 00 00 00 00 00
+  0x7758023ff080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023ff100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023ff180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023ff200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7758023ff280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+

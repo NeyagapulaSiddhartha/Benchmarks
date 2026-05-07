@@ -1,0 +1,37 @@
+──────────────────────────────────────────────────────────────────────
+FILE: nested_func_2_two_UAS_bug.cpp
+Path: ../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_2_two_UAS_bug.cpp
+
+  Compiled OK
+
+  Results over 80 run(s) (109 total attempts, 29 segfaults):
+    ASan error caught  : 74
+    Segfaults          : 29
+    Large-number output: 0  (ASan missed, UAS visible in output)
+    Clean runs         : 6
+
+  [VERDICT] FAIL — ASan DETECTED a bug
+
+  --- ASan Report (excerpt) ---
+==1964264==ERROR: AddressSanitizer: stack-use-after-return on address 0x75743a400020 at pc 0x57fb1fbe98d8 bp 0x7574395fee00 sp 0x7574395fedf8
+READ of size 4 at 0x75743a400020 thread T1
+    #0 0x57fb1fbe98d7 in runThread(void*) /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_2_two_UAS_bug.cpp:14:44
+    #1 0x75743c49caa3 in start_thread nptl/pthread_create.c:447:8
+    #2 0x75743c529c6b in clone3 misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:78
+
+Address 0x75743a400020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x57fb1fbe99ef in a() /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_2_two_UAS_bug.cpp:38
+
+  This frame has 1 object(s):
+    [32, 36) 'x' (line 39) <== Memory access at offset 32 is inside this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-use-after-return /home/sidda/FINDUS_Artifact/FINDUS/Benchmarks/MTUASBench/../MTUASBench/PTHREAD_VERSION/Thread_creation_Patterns/Nested_func_call/nested_func_2_two_UAS_bug.cpp:14:44 in runThread(void*)
+Shadow bytes around the buggy address:
+  0x75743a3ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75743a3ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75743a3ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75743a3fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x75743a3fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x75743a400000: f5 f5 f5 f5[f5]f5 f5 f5 00 00 00 00 00 00 00 00
+
